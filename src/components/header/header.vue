@@ -1,14 +1,11 @@
 <template>
-        <div>header</div>
+  <div>header</div>
 </template>
 <script>
-      export default {
-      	name: '',
-        components: {
-    
-    
-            }
-      }
+export default {
+  name: "",
+  components: {}
+};
 </script>
 <style>
 </style>
