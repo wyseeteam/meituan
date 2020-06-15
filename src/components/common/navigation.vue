@@ -1,5 +1,5 @@
 <template>
-	<div>ddddssssssssdddd</div>
+	<div>navigation</div>
 </template>
 <script>
      export default {
