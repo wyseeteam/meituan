@@ -21,8 +21,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 
 h1,
@@ -41,6 +39,7 @@ li {
 }
 
 a {
-  color: #42b983;
+  color: #FE8C00;
+  text-decoration: none;
 }
 </style>
