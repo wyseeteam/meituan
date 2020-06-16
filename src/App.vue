@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style>
-body{
+body,html,div, ul, li, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, ol, form, input, textarea, th, td, select {
   margin: 0;
   padding: 0;
   font-size: 12px;
@@ -45,5 +45,11 @@ li {
 a {
   color: #FE8C00;
   text-decoration: none;
+}
+
+input, textarea {
+    outline: none;
+    border: none;
+    border: 1px solid #E5E5E5;
 }
 </style>
