@@ -51,5 +51,11 @@ input, textarea {
     outline: none;
     border: none;
     border: 1px solid #E5E5E5;
+    box-sizing: border-box;
+}
+button{
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 </style>
