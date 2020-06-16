@@ -28,7 +28,7 @@ export default {
     requestFilms: function()
     {
       console.log('请求数据');
-      request_get('https://hf.meituan.com/ptapi/getComingFilms?ci=56&limit=10', null, null);
+      request_get('/getComingFilms?ci=56&limit=10');
     }
   }
 };

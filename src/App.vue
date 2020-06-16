@@ -19,6 +19,7 @@ export default {
 body{
   margin: 0;
   padding: 0;
+  font-size: 12px;
 }
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -34,11 +35,11 @@ h2 {
 ul {
   list-style-type: none;
   padding: 0;
+  margin: 0;
 }
 
 li {
   display: inline-block;
-  margin: 0 10px;
 }
 
 a {

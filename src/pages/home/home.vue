@@ -1,6 +1,7 @@
 <template>
   <div>
     <head-top></head-top>
+    <search></search>
     <contentTop></contentTop>
     <contentBottom></contentBottom>
     <navigation></navigation>
@@ -9,6 +10,7 @@
 </template>
 <script>
 import headTop from "../../components/header/header";
+import search from "../../components/common/search";
 import navigation from "../../components/common/navigation";
 import footBottom from "../../components/footer/footer";
 import contentTop from "./content/contentTop/contentTop";
@@ -18,6 +20,7 @@ export default {
   name: "home",
   components: {
     headTop,
+    search,
     contentTop,
     contentBottom,
     navigation,
