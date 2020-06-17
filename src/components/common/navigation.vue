@@ -1,14 +1,11 @@
 <template>
-	<div>navigation</div>
+  <div>navigation</div>
 </template>
 <script>
-     export default {
-      	name: '',
-        components: {
-    
-    
-            }
-      }
+export default {
+  name: "",
+  components: {}
+};
 </script>
 <style>
 </style>
