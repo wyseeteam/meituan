@@ -32,9 +32,16 @@ export default {
  			showSearchlist: false,//是否显示搜索列表
  		}
  	},
+ 	created() {
+ 	console.log(9999)
+ 	    console.log(this.a());
+ 	},
  	methods: {
  		getTip() {
  			
+ 		},
+ 		async a() {
+ 		 return Promise.resolve("hello async");
  		}
  	}
  }
