@@ -5,15 +5,9 @@
 			<div class="searchbtn">
 				<input type="text" name="" placeholder="搜索商家或地点" @input="getTip" v-model="keyword">
 				<button>搜索</button>
-				<div class="searchlist" v-show="showSearchlist">
+				<div class="searchlist" v-if="showSearchlist">
 					<ul>
-						<li>55</li>
-						<li>ee</li>
-						<li>ee</li>
-						<li>ee</li>
-						<li>ee</li>
-						<li>ee</li>
-						<li>ee</li>
+						<li v-for="(item, index) in searchlist">{{item.editorWord}}</li>
 					</ul>
 				</div>
 			</div>
@@ -23,26 +17,29 @@
 	</div>
 </template>
 <script>
-import {request_get} from '../../ajax/request.js';
+ import {request_get} from '../../ajax/request.js';
+import ax from 'axios'
 
 export default {
  	data(){
  		return {
  			keyword: '',//搜索关键字
  			showSearchlist: false,//是否显示搜索列表
+ 			searchlist: [],//搜索列表
  		}
  	},
  	created() {
- 	console.log(9999)
- 	    console.log(this.a());
+ 		//this.getTip();
  	},
  	methods: {
- 		getTip() {
+ 	    async getTip() {
+ 			this.showSearchlist = true;
+ 			let res = await request_get('/suggest?keyword='+this.keyword);
+ 			this.searchlist = res.data.data.suggestItems;
+ 			console.log(res)
  			
  		},
- 		async a() {
- 		 return Promise.resolve("hello async");
- 		}
+ 		
  	}
  }
 </script>
@@ -91,5 +88,9 @@ export default {
 	height: 30px;
 	line-height: 30px;
 	padding: 0 10px;
+	cursor: pointer;
+}
+.searchlist ul li:hover{
+	color: #FE8C00;
 }
 </style>

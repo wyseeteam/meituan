@@ -2,31 +2,39 @@ import ax from 'axios'
 
 let c_uuid = uuid();
 
-export function request_get(url, success, fail)
+export async function request_get(url, success, fail)
 {
    if (!getCookie('uuid'))
    {
      console.log('设置cookie')
     setCookie('uuid', c_uuid);
    }
-  
-    console.log('开始请求数据')
-    ax.get(url, {}).then(function(res){
-        console.log('success');
-        if (success)
-        {
-          success(res);
-        }
+   try{
+      const data = await ax.get(url,{});
+      return data;
+   }catch (error) {
+      throw new Error(error);
+   }
+   
+    // ax.get(url, {}).then(function(res){
+    //     console.log('success');
+    //     return res;
+    //     if (success)
+    //     {
+    //       success(res);
+    //     }
         
-    }).catch(function(error){
-        console.log('error');
-        if (fail)
-        {
-          fail(error);
-        }
+    // }).catch(function(error){
+    //     console.log('error');
+    //     if (fail)
+    //     {
+    //       fail(error);
+    //     }
         
-    });
+    // });
 }
+
+
 
 //获取cookie、
 function getCookie(name) {
