@@ -34,7 +34,6 @@ export default {
 </script>
 <style>
 .header{
-	background-color: rgb(248,248,248);
 	height: 35px;
 	line-height: 35px;
 	color: #999;

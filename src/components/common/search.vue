@@ -1,19 +1,20 @@
 <template>
 	<div class="searchwrapper">
-		<img src="../../assets/logo.png">
-		<div class="searchmodule">
-			<div class="searchbtn">
-				<input type="text" name="" placeholder="搜索商家或地点" @input="getTip" v-model="keyword">
-				<button>搜索</button>
-				<div class="searchlist" v-if="showSearchlist">
-					<ul>
-						<li v-for="(item, index) in searchlist">{{item.editorWord}}</li>
-					</ul>
+		<div class="search">
+			<img src="../../assets/logo.png">
+			<div class="searchmodule">
+				<div class="searchbtn">
+					<input type="text" name="" placeholder="搜索商家或地点" @input="getTip" v-model="keyword">
+					<button>搜索</button>
+					<div class="searchlist" v-if="showSearchlist">
+						<ul>
+							<li v-for="(item, index) in searchlist">{{item.editorWord}}</li>
+						</ul>
+					</div>
 				</div>
 			</div>
-			
-			
 		</div>
+		
 	</div>
 </template>
 <script>
@@ -43,8 +44,11 @@ export default {
  	}
  }
 </script>
-<style>
+<style scoped>
 .searchwrapper{
+	background-color: #fff;
+}
+.search{
 	width: 1200px;
 	margin: 0 auto;
 	overflow: hidden;
