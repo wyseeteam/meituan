@@ -10,12 +10,12 @@ export async function request_get(url, success, fail)
     setCookie('uuid', c_uuid);
    }
    try{
-      const data = await ax.get(url,{});
+      let data = await ax.get(url,{});
       return data;
    }catch (error) {
       throw new Error(error);
    }
-   
+
     // ax.get(url, {}).then(function(res){
     //     console.log('success');
     //     return res;
