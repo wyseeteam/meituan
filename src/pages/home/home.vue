@@ -28,7 +28,7 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style>
 body{
   background-color: rgb(248,248,248);
 }

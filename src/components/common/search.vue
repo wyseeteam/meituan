@@ -47,6 +47,7 @@ export default {
 <style scoped>
 .searchwrapper{
 	background-color: #fff;
+	padding-bottom: 100px;
 }
 .search{
 	width: 1200px;
