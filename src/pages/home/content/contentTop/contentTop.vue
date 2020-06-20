@@ -68,14 +68,17 @@ export default {
 	margin: 0 auto;
 }
 .category{
-	width: 300px;
+	width: 235px;
 	border: 1px solid #E5E5E5;
 	background-color: #fff;
+	margin-top: -50px;
+	box-sizing: border-box;
 }
 .title{
 	margin: 10px 0 0 10px;
 	font-size: 16px;
 	font-weight: 700;
+	height: 40px;
 }
 .categorylist{
 }
@@ -89,33 +92,50 @@ export default {
 	background-color: #eee;
 }
 .banner{
-	width: 600px;
+	width: 740px;
 	margin: 10px;
 	position: relative;
 }
 .hometype{
 	position: absolute;
 	top: -50px;
+	font-size: 16px;
+	font-weight: 700;
+}
+.hometype a{
+	margin: 0 20px;
 }
 .userinfo{
-	width: 300px;
+	width: 235px;
+    box-sizing: border-box;
+}
+.bannertop{
+	height: 260px;
 }
 .bannerslide{
 	float: left;
-	width: 400px;
-	height: 200px;
-	margin-right: 8px;
+	width: 550px;
+	height: 100%;
+	margin-right: 10px;
 }
 .link-1{
 }
 .link-1 img{
-	width: 180px;
+	width: 150px;
+	height: 100%;
 }
 .link-2 img{
-	width: 200px;
+	width: 270px;
 }
 .link-3 img{
-	width: 400px;
+	width: 550px;
+	height: 100%;
+}
+.bannerbottom{
+	font-size: 0;
+}
+.bannerbottom .link-2{
+	margin-right: 10px;
 }
 .userinfo{
 	border: 1px solid #E5E5E5;
