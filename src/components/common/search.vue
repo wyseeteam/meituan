@@ -87,6 +87,7 @@ export default {
 	border: 1px solid #E5E5E5;
 	box-sizing: border-box;
 	background-color: #fff;
+	z-index: 1000;
 }
 .searchlist ul li{
 	display: block;

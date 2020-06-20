@@ -51,7 +51,7 @@ module.exports = {
     overlay: true,
     proxy: {
       '/api': {
-        target:'https://hf.meituan.com/ptapi', 
+        target:'https://hf.meituan.com/', 
         changeOrigin:true, 
         pathRewrite:{  
           '^/api': '' 

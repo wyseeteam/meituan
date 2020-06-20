@@ -55,9 +55,31 @@
   </div>
 </template>
 <script>
+ import {request_get} from '../../../../ajax/request.js';
+ import cheerio from 'cheerio';
 export default {
-  name: "",
-  components: {}
+  data() {
+	  return {
+		  categoryData: {}//左侧分类数据
+	  }
+  },
+  created() {
+	  this.getCategory();
+
+  },
+  methods: {
+	   async getCategory() {
+ 		let res = await request_get('/');
+		console.log(res.data)
+		var txt = res.data.match(/AppData.*?<\/script>/g)[0].
+		replace(/<\/script>/,'').
+		replace(/AppData\s+\=/,'').
+		replace(/(;$)/g,'');
+		txt = JSON.parse(txt);
+		this.categoryData = txt;
+		console.log(this.categoryData)
+	  }
+  }
 };
 </script>
 <style scoped>
