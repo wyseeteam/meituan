@@ -1,7 +1,6 @@
 <template>
   <div class="bg">
     <div>
-      <div>
         <contentTitle
           option_title="猫眼电影"
           v-bind:option_list="filmoptionlist"
@@ -23,16 +22,21 @@
           </div>
         </div>
       </div>
-    </div>
-    <div>
-      <div>
-        <contentTitle
+    <div class="minsubg">
+      <contentTitle
           option_title="推荐民宿"
           v-bind:option_list="minsucitylist"
           :selectindex="cityindex"
           option_color="rgb(241, 191, 82)"
+          @changeAction='changeAction'
         ></contentTitle>
-      </div>
+        <div class="minsu">
+          <ul>
+            <li v-for="minsu in minsulist" v-bind:key='minsu.productId'>
+              <img :src="minsu.coverImage" alt="">
+            </li>
+          </ul>
+        </div>
     </div>
     <div>
       <div>
@@ -60,9 +64,9 @@ export default {
 
   data(){
     return {
-      filmoptionlist: ['即将上映'],
+      filmoptionlist: [{ name: "即将上映" }],
       minsucitylist: [],
-      likeoptionlist: ['为你甄选最合适的'],
+      likeoptionlist: [{ name: "为你甄选最合适的" }],
       filmlist: [],
       minsulist: [],
       likelist: [],
@@ -85,7 +89,7 @@ export default {
       console.log("请求数据");
 
       // 电影
-      request_get("/getComingFilms?ci=56&limit=10")
+      request_get("/ptapi/getComingFilms?ci=56&limit=10")
         .then(function(res) {
           console.log("电影");
           res.data.data.coming.forEach(function(ret) {
@@ -98,13 +102,17 @@ export default {
           console.log(err);
         });
       // /民宿
-      request_get("/minsu?cityId=310100").then(function(res) {
+      request_get("/ptapi/minsu?cityId=310100").then(function(res) {
         console.log(res);
         that.minsulist = res.data.productList;
+        console.log(that.minsulist);
+        that.minsulist.forEach(function(itm){
+          console.log(itm.coverImage);
+        })
       });
 
       // // 民宿城市
-      request_get("/minsuCitys?fetchSize=10").then(function(res) {
+      request_get("/ptapi/minsuCitys?fetchSize=10").then(function(res) {
         console.log(res);
         if (!res.data.cityList || res.data.cityList.length == 0) {
           that.minsucitylist = [
@@ -139,7 +147,7 @@ export default {
       });
 
       // // 猜你喜欢
-      request_get("/recommends").then(function(res) {
+      request_get("/ptapi/recommends").then(function(res) {
         console.log(res);
         that.likelist = res.data;
       });
@@ -159,6 +167,11 @@ export default {
       this.page = this.page+1;
     },
 
+
+    /////选择城市
+    changeAction: function(data){
+      console.log(data);
+    }
   }
 };
 </script>
@@ -232,5 +245,28 @@ export default {
   -moz-transform: rotate(-45deg); /* Firefox */
   -webkit-transform: rotate(-45deg); /* Safari 和 Chrome */
   -o-transform: rotate(-45deg);
+}
+
+.minsu
+{
+  width: 94%;
+  margin: 0 auto;
+  padding: 1%;
+}
+
+.minsu ul li
+{
+  width: 30.6666666%;
+  float: left;
+  height: 200px;
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-bottom: 30px;
+}
+.minsu ul li img
+{
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
 }
 </style>
