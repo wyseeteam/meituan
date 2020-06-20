@@ -105,6 +105,7 @@ export default {
 .hometype a{
 	margin: 0 20px;
 }
+
 .userinfo{
 	width: 235px;
     box-sizing: border-box;
