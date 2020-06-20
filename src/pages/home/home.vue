@@ -3,7 +3,9 @@
     <head-top></head-top>
     <search></search>
     <contentTop></contentTop>
-   
+    <contentBottom></contentBottom>
+    <navigation></navigation>
+    <foot-bottom></foot-bottom>
   </div>
 </template>
 <script>

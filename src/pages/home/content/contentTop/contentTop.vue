@@ -70,7 +70,6 @@ export default {
   methods: {
 	   async getCategory() {
  		let res = await request_get('/');
-		console.log(res.data)
 		var txt = res.data.match(/AppData.*?<\/script>/g)[0].
 		replace(/<\/script>/,'').
 		replace(/AppData\s+\=/,'').
