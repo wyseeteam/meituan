@@ -43,7 +43,7 @@ li {
 }
 
 a {
-  color: #FE8C00;
+  color: #000;
   text-decoration: none;
 }
 
