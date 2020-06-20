@@ -35,7 +35,7 @@ export default {
  	methods: {
  	    async getTip() {
  			this.showSearchlist = true;
- 			let res = await request_get('/suggest?keyword='+this.keyword);
+ 			let res = await request_get('/ptapi/suggest?keyword='+this.keyword);
  			this.searchlist = res.data.data.suggestItems;
  			console.log(res)
  			
