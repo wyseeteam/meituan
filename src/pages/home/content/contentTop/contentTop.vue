@@ -4,18 +4,14 @@
   		<div class="title">全部分类</div>
   		<div class="categorylist">
   			<ul>
-  				<li>dd</li>
-  				<li>dd</li>
-  				<li>dd</li>
-  				<li>dd</li>
-  				<li>dd</li>
-  				<li>dd</li>
-  				<li>dd</li>
-  				<li>dd</li>
-  				<li>dd</li>
-  				<li>dd</li>
-  				<li>dd</li>
-
+  				<li v-for="(categoryleftitem, index1) in appData.categorys">
+					<span v-for="(tipitem,index2) in categoryleftitem.leftPcHomeCategoryList" v-show="index2!=categoryleftitem.leftPcHomeCategoryList.length-1">
+						<a href="">{{tipitem.name}}</a>/
+					</span>
+					<span v-for="(tipitem,index2) in categoryleftitem.leftPcHomeCategoryList" v-show="index2==categoryleftitem.leftPcHomeCategoryList.length-1">
+						<a href="">{{tipitem.name}}</a>
+					</span>
+				</li>
   			</ul>
   		</div>
   	</div>
@@ -35,7 +31,7 @@
   				</a>
   			</div>
   			<a href="" class="link-1">
-  				<img src="http://p0.meituan.net/codeman/e473bb428f070321269b23370ff02ba956209.jpg">
+  				<img src="http://p1.meituan.net/codeman/8cce56c467a17e04f3094d1e455462a0132772.png">
   			</a>
 
   		</div>
@@ -43,12 +39,13 @@
   			<a href="" class="link-2">
   				<img src="http://p1.meituan.net/codeman/8cce56c467a17e04f3094d1e455462a0132772.png">
   			</a>
-  			<a href="" class="link-2">
+			<a href="" class="link-2">
   				<img src="http://p1.meituan.net/codeman/8cce56c467a17e04f3094d1e455462a0132772.png">
   			</a>
-  			<a href="" class="link-1">
-  				<img src="http://p1.meituan.net/codeman/5b21cddb4bb1cbc3a9c3bce0f726c75940469.jpg">
+			  <a href="" class="link-1">
+  				<img src="http://p1.meituan.net/codeman/8cce56c467a17e04f3094d1e455462a0132772.png">
   			</a>
+  			
   		</div>
   	</div>
   	<div class="userinfo"></div>
@@ -60,7 +57,7 @@
 export default {
   data() {
 	  return {
-		  categoryData: {}//左侧分类数据
+		  appData: {},
 	  }
   },
   created() {
@@ -75,8 +72,9 @@ export default {
 		replace(/AppData\s+\=/,'').
 		replace(/(;$)/g,'');
 		txt = JSON.parse(txt);
-		this.categoryData = txt;
-		console.log(this.categoryData)
+		this.appData = txt;
+		console.log(this.appData)
+		console.log(this.appData.categorys)
 	  }
   }
 };
