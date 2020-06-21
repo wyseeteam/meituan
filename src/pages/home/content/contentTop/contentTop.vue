@@ -4,7 +4,7 @@
   		<div class="title">全部分类</div>
   		<div class="categorylist">
   			<ul>
-  				<li v-for="(categoryleftitem, index1) in appData.categorys">
+  				<li v-for="(categoryleftitem, index1) in categorys" @mouseover="showTipitem(index1)">
 					<span v-for="(tipitem,index2) in categoryleftitem.leftPcHomeCategoryList" v-show="index2!=categoryleftitem.leftPcHomeCategoryList.length-1">
 						<a href="">{{tipitem.name}}</a>/
 					</span>
@@ -14,6 +14,19 @@
 				</li>
   			</ul>
   		</div>
+		<div class="categorydetail">
+			<div class="categorydetaillist" v-for="(categoryrightitem, index1) in categoryRightList">
+				<div v-for="(detailitem, index2) in categoryrightitem.rightPcHomeCategoryList">
+					<div class="detailtitle">
+						<h2><a href="" class="">{{detailitem[0].name}}</a></h2>
+						<a href="">更多></a>
+					</div>
+					<div class="detailcontent">
+						<a href="" class="" v-for="(detailtipitem ,index3) in detailitem">{{detailtipitem.name}}</a>
+					</div>
+				</div>
+			</div>
+		</div>
   	</div>
   	<div class="banner">
   		<div class="hometype">
@@ -58,6 +71,22 @@ export default {
   data() {
 	  return {
 		  appData: {},
+		  categorys: [],
+		  istipitemshowed: false,
+		  showNavIndex: 0,//左侧显示nav索引值
+	  }
+  },
+  computed: {
+	  categoryRightList() {
+		  let newData = [];
+		  var that = this;
+		  this.categorys.forEach((item, index) => {
+			  if(index == that.showNavIndex){
+				  newData.push(item);
+			  }
+		  })
+		  console.log(newData)
+		  return newData;
 	  }
   },
   created() {
@@ -73,8 +102,14 @@ export default {
 		replace(/(;$)/g,'');
 		txt = JSON.parse(txt);
 		this.appData = txt;
+		this.categorys = txt.categorys;
 		console.log(this.appData)
-		console.log(this.appData.categorys)
+		console.log(this.categorys)
+	  },
+	  showTipitem(index) {
+		  this.showNavIndex = index;
+		  console.log(index)
+		  this.istipitemshowed=true;
 	  }
   }
 };
@@ -92,6 +127,7 @@ export default {
 	background-color: #fff;
 	margin-top: -50px;
 	box-sizing: border-box;
+	position: relative;
 }
 .title{
 	margin: 10px 0 0 10px;
@@ -110,8 +146,39 @@ export default {
 .category ul li:hover{
 	background-color: #eee;
 }
+.categorydetail{
+	position: absolute;
+	left: 235px;
+	bottom: 0;
+	width: 400px;
+	height: 500px;
+	z-index: 1000;
+	background-color: #fff;
+	padding: 20px;
+	box-sizing: border-box;
+	color: #999;
+}
+.detailtitle{
+	height: 50px;
+	line-height: 50px;
+	border-bottom: 1px solid #E5E5E5;
+	display: flex;
+	justify-content: space-between;
+}
+.detailtitle a{
+	color: #999;
+}
+.detailtitle h2 a{
+	color: #000;
+}
+.detailcontent a{
+	display: inline-block;
+	margin-top: 20px;
+	margin-right: 20px;
+	color: #999;
+}
 .banner{
-	width: 740px;
+	width: 710px;
 	margin: 10px;
 	position: relative;
 }
