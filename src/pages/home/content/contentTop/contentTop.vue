@@ -40,8 +40,8 @@
   		<div class="bannertop">
   			<div class="bannerslide">
 			  	<div class="slidecontent">
-				  	<transition-group name="fade">
-					  	<div class="slidecontentli" v-for="(item, index) in bannerList" :key="index" v-show="index === currentBannerIndex">
+				  	<transition-group name="fadeIn">
+					  	<div class="slidecontentli" v-for="(item, index) in bannerList" :key="item.url" v-show="index === currentBannerIndex">
 					 		<a href="" class="link-3">
 				  			<img v-bind:src="item.url">
 				  			</a>
@@ -49,10 +49,10 @@
 					</transition-group>
 				</div>
 				<div class="iconLeft" @click="goLeft">
-					<i>左</i>
+					<i><</i>
 				</div>
 				<div class="iconRight" @click="goRight">
-					<i>右</i>
+					<i>></i>
 				</div>
   			</div>
   			<a href="" class="link-1">
@@ -182,12 +182,16 @@ export default {
 };
 </script>
 <style scoped>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 1s;
+.fadeIn-enter-active,.fadeIn-leave-active {
+transition: all 1s ease;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
+.fadeIn-enter-active,.fadeIn-leave{
+opacity: 1;
 }
+.fadeIn-enter,.fadeIn-leave-active {
+opacity: 0;
+}
+
 .maincontainer{
 	display: flex;
 	justify-content: space-between;
@@ -285,10 +289,19 @@ export default {
 }
 .iconLeft,.iconRight{
 	position: absolute;
-	top: 50px;
+	top: 50%;
+	margin-top: -25px;
 	width: 50px;
 	height: 50px;
 	background-color: #aaa;
+	text-align: center;
+	line-height: 50px;
+	font-weight: 700;
+	cursor: pointer;
+	font-size: 30px;
+	color: #fff;
+	background-color: #000;
+	border-radius: 50%;
 }
 .iconLeft{
 	left: 0;
@@ -304,7 +317,7 @@ export default {
 .slidecontentli{
 	float: left;
 	height: 100%;
-	position: relative;
+	position: absolute;
 }
 .link-1{
 }

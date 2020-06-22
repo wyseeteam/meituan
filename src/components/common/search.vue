@@ -48,6 +48,7 @@ export default {
 .searchwrapper{
 	background-color: #fff;
 	padding-bottom: 100px;
+	padding-top: 20px;
 }
 .search{
 	width: 1200px;
