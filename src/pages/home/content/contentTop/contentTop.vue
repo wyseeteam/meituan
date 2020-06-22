@@ -39,24 +39,28 @@
   		</div>
   		<div class="bannertop">
   			<div class="bannerslide">
-  				<a href="" class="link-3">
-  					<img src="http://p1.meituan.net/codeman/8cce56c467a17e04f3094d1e455462a0132772.png">
-  				</a>
+			  	<div class="slidecontent">
+					<div class="slidecontentli" v-for="(item, index) in bannerList" :style="getStyle(index)">
+					 	<a href="" class="link-3">
+				  			<img v-bind:src="item.url">
+				  		</a>
+					</div>
+				</div>
   			</div>
   			<a href="" class="link-1">
-  				<img v-bind:src="bannerList[1].content.url">
+  				<img v-bind:src="bannerimg2">
   			</a>
 
   		</div>
   		<div class="bannerbottom">
   			<a href="" class="link-2">
-  				<img v-bind:src="bannerList[2].content.url">
+  				<img v-bind:src="bannerimg3">
   			</a>
 			<a href="" class="link-2">
-  				<img v-bind:src="bannerList[3].content.url">
+  				<img v-bind:src="bannerimg4">
   			</a>
-			  <a href="" class="link-1">
-  				<img v-bind:src="bannerList[4].content.url">
+			<a href="" class="link-1">
+  				<img v-bind:src="bannerimg5">
   			</a>
   			
   		</div>
@@ -93,7 +97,12 @@ export default {
 		  categorys: [],
 		  istipitemshowed: false,
 		  showNavIndex: 0,//左侧显示nav索引值
-		  url: 'http://p0.meituan.net/codeman/e473bb428f070321269b23370ff02ba956209.jpg',
+		  bannerimg2: '',
+		  bannerimg3: '',
+		  bannerimg4: '',
+		  bannerimg5: '',
+		  bannerList: [],
+
 	  }
   },
   computed: {
@@ -110,11 +119,10 @@ export default {
 	  }
   },
   created() {
-	  this.getCategory();
-
+	  this.initData();
   },
   methods: {
-	   async getCategory() {
+	   async initData() {
  		let res = await request_get('/');
 		var txt = res.data.match(/AppData.*?<\/script>/g)[0].
 		replace(/<\/script>/,'').
@@ -123,10 +131,14 @@ export default {
 		txt = JSON.parse(txt);
 		this.appData = txt;
 		this.categorys = txt.categorys;
-		this.bannerList = txt.bannerList;
+		this.bannerList = txt.bannerList[0].content;
 		console.log(this.appData)
 		console.log(this.categorys)
-		console.log(this.bannerList)
+		this.bannerimg2 = txt.bannerList[1].content.url;
+		this.bannerimg3 = txt.bannerList[2].content.url;
+		this.bannerimg4 = txt.bannerList[3].content.url;
+		this.bannerimg5 = txt.bannerList[4].content.url;
+		this.setBannerAnimation();
 	  },
 	  showTipitem(index) {
 		  this.showNavIndex = index;
@@ -135,7 +147,16 @@ export default {
 	  },
 	  hideTipitem(index) {
 		  this.istipitemshowed = false;
+	  },
+	  setBannerAnimation() {
+		  console.log(this.bannerList)
+
+	  },
+	  getStyle(index) {
+		  console.log(index)
+		  return 'left:-' + (index*550) +'px';
 	  }
+	 
   }
 };
 </script>
@@ -232,6 +253,17 @@ export default {
 	width: 550px;
 	height: 100%;
 	margin-right: 10px;
+	overflow: hidden;
+}
+.slidecontent{
+	width: 2750px;
+	height: 100%;
+	position: relative;
+}
+.slidecontentli{
+	float: left;
+	height: 100%;
+	position: relative;
 }
 .link-1{
 }
@@ -241,6 +273,10 @@ export default {
 }
 .link-2 img{
 	width: 270px;
+}
+.link-3{
+	float: left;
+	height: 100%;
 }
 .link-3 img{
 	width: 550px;
