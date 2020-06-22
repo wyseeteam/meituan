@@ -40,19 +40,19 @@
   		<div class="bannertop">
   			<div class="bannerslide">
 			  	<div class="slidecontent">
-				  	<transition-group>
-					  	<div class="slidecontentli" v-for="(item, index) in bannerList" :key="index" :style="getStyle(index)">
+				  	<transition-group name="fade">
+					  	<div class="slidecontentli" v-for="(item, index) in bannerList" :key="index" v-show="index === currentBannerIndex">
 					 		<a href="" class="link-3">
 				  			<img v-bind:src="item.url">
 				  			</a>
 						</div>
 					</transition-group>
 				</div>
-				<div class="iconLeft">
-					<i @click="goLeft">左</i>
+				<div class="iconLeft" @click="goLeft">
+					<i>左</i>
 				</div>
-				<div class="iconRight">
-					<i @click="goRight">右</i>
+				<div class="iconRight" @click="goRight">
+					<i>右</i>
 				</div>
   			</div>
   			<a href="" class="link-1">
@@ -93,18 +93,6 @@
 			</p>
 		</div>
 	</div>
-	<div>
-    　　<div>
-       　　<span @click="show = 0">第一个</span>
-          <span @click="show = 2">第二个</span>
-          <span @click="show = 3">第三个</span>
-       </div>
-       <transition-group name="slide">
-       　　<div v-show="show == 0" key="0">第一个文本</div>
-          <div v-show="show == 2" key="2">第二个文本</div>
-          <div v-show="show == 3" key="3">第三个文本</div>
-       </transition-group>
-   </div>
   </div>
   
 </template>
@@ -123,7 +111,7 @@ export default {
 		  bannerimg4: '',
 		  bannerimg5: '',
 		  bannerList: [],
-		  show: 0
+		  currentBannerIndex: 0,//当前banner显示第几张
 	  }
   },
   computed: {
@@ -178,30 +166,28 @@ export default {
 		  return 'left:-' + (index*550) +'px';
 	  },
 	  goLeft() {
-
+		  if(this.currentBannerIndex==0){
+			  this.currentBannerIndex = 5;
+		  }
+		  this.currentBannerIndex--;
 	  },
 	  goRight() {
-
+		  if(this.currentBannerIndex==4){
+			  this.currentBannerIndex = 0;
+		  }
+		  this.currentBannerIndex++;
 	  }
 	 
   }
 };
 </script>
 <style scoped>
- .slide-enter-active{
- 　　　　transition:all .5s linear;
-   }
-   .slide-leave-active{
-        transition:all .1s linear;
-   }
-   .slide-enter{
-        transform: translateX(-100%);
-        opacity: 0;
-   }
-   .slide-leave-to{
-       transform: translateX(110%);
-       opacity: 0;
-   }
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 .maincontainer{
 	display: flex;
 	justify-content: space-between;
