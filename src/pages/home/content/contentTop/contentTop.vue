@@ -4,7 +4,7 @@
   		<div class="title">全部分类</div>
   		<div class="categorylist">
   			<ul>
-  				<li v-for="(categoryleftitem, index1) in categorys" @mouseover="showTipitem(index1)">
+  				<li v-for="(categoryleftitem, index1) in categorys" @mouseover="showTipitem(index1)" @mouseout="hideTipitem(index1)">
 					<span v-for="(tipitem,index2) in categoryleftitem.leftPcHomeCategoryList" v-show="index2!=categoryleftitem.leftPcHomeCategoryList.length-1">
 						<a href="">{{tipitem.name}}</a>/
 					</span>
@@ -14,7 +14,7 @@
 				</li>
   			</ul>
   		</div>
-		<div class="categorydetail">
+		<div class="categorydetail" v-if="istipitemshowed">
 			<div class="categorydetaillist" v-for="(categoryrightitem, index1) in categoryRightList">
 				<div v-for="(detailitem, index2) in categoryrightitem.rightPcHomeCategoryList">
 					<div class="detailtitle">
@@ -44,19 +44,19 @@
   				</a>
   			</div>
   			<a href="" class="link-1">
-  				<img src="http://p1.meituan.net/codeman/8cce56c467a17e04f3094d1e455462a0132772.png">
+  				<img v-bind:src="bannerList[1].content.url">
   			</a>
 
   		</div>
   		<div class="bannerbottom">
   			<a href="" class="link-2">
-  				<img src="http://p1.meituan.net/codeman/8cce56c467a17e04f3094d1e455462a0132772.png">
+  				<img v-bind:src="bannerList[2].content.url">
   			</a>
 			<a href="" class="link-2">
-  				<img src="http://p1.meituan.net/codeman/8cce56c467a17e04f3094d1e455462a0132772.png">
+  				<img v-bind:src="bannerList[3].content.url">
   			</a>
 			  <a href="" class="link-1">
-  				<img src="http://p1.meituan.net/codeman/8cce56c467a17e04f3094d1e455462a0132772.png">
+  				<img v-bind:src="bannerList[4].content.url">
   			</a>
   			
   		</div>
@@ -74,6 +74,7 @@ export default {
 		  categorys: [],
 		  istipitemshowed: false,
 		  showNavIndex: 0,//左侧显示nav索引值
+		  url: 'http://p0.meituan.net/codeman/e473bb428f070321269b23370ff02ba956209.jpg',
 	  }
   },
   computed: {
@@ -103,13 +104,18 @@ export default {
 		txt = JSON.parse(txt);
 		this.appData = txt;
 		this.categorys = txt.categorys;
+		this.bannerList = txt.bannerList;
 		console.log(this.appData)
 		console.log(this.categorys)
+		console.log(this.bannerList)
 	  },
 	  showTipitem(index) {
 		  this.showNavIndex = index;
 		  console.log(index)
-		  this.istipitemshowed=true;
+		  this.istipitemshowed = true;
+	  },
+	  hideTipitem(index) {
+		  this.istipitemshowed = false;
 	  }
   }
 };
@@ -123,6 +129,7 @@ export default {
 }
 .category{
 	width: 235px;
+	height: 500px;
 	border: 1px solid #E5E5E5;
 	background-color: #fff;
 	margin-top: -50px;
@@ -139,8 +146,8 @@ export default {
 }
 .category ul li{
 	display: block;
-	height: 30px;
-	line-height: 30px;
+	height: 28px;
+	line-height: 28px;
 	padding: 0 10px;
 }
 .category ul li:hover{
@@ -179,7 +186,9 @@ export default {
 }
 .banner{
 	width: 710px;
+	height: 438px;
 	margin: 10px;
+	margin-bottom: 0;
 	position: relative;
 }
 .hometype{
@@ -220,6 +229,7 @@ export default {
 }
 .bannerbottom{
 	font-size: 0;
+	margin-top: 10px;
 }
 .bannerbottom .link-2{
 	margin-right: 10px;
