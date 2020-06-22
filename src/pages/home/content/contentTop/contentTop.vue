@@ -61,7 +61,26 @@
   			
   		</div>
   	</div>
-  	<div class="userinfo"></div>
+  	<div class="userinfo">
+	  	<div class="logincard">
+		  	<div class="headimg">
+			  	<img src="https://s0.meituan.net/bs/fe-web-meituan/e350c4a/img/avatar.jpg">
+			</div>
+			<p>Hi！你好</p>
+			<a href="">注册</a>
+			<a href="">立即登录</a>
+		</div>
+		<div class="downloadapp">
+			<div class="appimg">
+				<img src="https://s1.meituan.net/bs/fe-web-meituan/60ac9a0/img/download-qr.png">
+			</div>
+			<p style="font-size:16px;">美团APP手机版</p>
+			<p>
+				<span style="color:#EC5330;margin-right:5px;">1元起</span>
+				<span>吃喝玩乐</span>
+			</p>
+		</div>
+	</div>
   </div>
 </template>
 <script>
@@ -235,6 +254,42 @@ export default {
 	margin-right: 10px;
 }
 .userinfo{
+	text-align: center;
+}
+.logincard,.downloadapp{
 	border: 1px solid #E5E5E5;
+	margin-top: 10px;
+	box-sizing: border-box;
+	background-color: #fff;
+}
+.logincard{
+	height: 260px;
+}
+.logincard a{
+	display: block;
+	width: 100px;
+	height: 40px;
+	line-height: 40px;
+	border: 1px solid #e5e5e5;
+	border-radius: 20px;
+	margin: 15px auto;
+	font-size: 14px;
+}
+.headimg img{
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	margin-top: 30px;
+}
+.logincard p{
+	font-size: 16px;
+}
+.downloadapp{
+	height: 165px;
+}
+.appimg img{
+	width: 100px;
+	height: 100px;
+	margin-top: 10px;
 }
 </style>
