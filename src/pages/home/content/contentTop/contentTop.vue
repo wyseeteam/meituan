@@ -40,11 +40,19 @@
   		<div class="bannertop">
   			<div class="bannerslide">
 			  	<div class="slidecontent">
-					<div class="slidecontentli" v-for="(item, index) in bannerList" :style="getStyle(index)">
-					 	<a href="" class="link-3">
+				  	<transition-group>
+					  	<div class="slidecontentli" v-for="(item, index) in bannerList" :key="index" :style="getStyle(index)">
+					 		<a href="" class="link-3">
 				  			<img v-bind:src="item.url">
-				  		</a>
-					</div>
+				  			</a>
+						</div>
+					</transition-group>
+				</div>
+				<div class="iconLeft">
+					<i @click="goLeft">左</i>
+				</div>
+				<div class="iconRight">
+					<i @click="goRight">右</i>
 				</div>
   			</div>
   			<a href="" class="link-1">
@@ -85,7 +93,20 @@
 			</p>
 		</div>
 	</div>
+	<div>
+    　　<div>
+       　　<span @click="show = 0">第一个</span>
+          <span @click="show = 2">第二个</span>
+          <span @click="show = 3">第三个</span>
+       </div>
+       <transition-group name="slide">
+       　　<div v-show="show == 0" key="0">第一个文本</div>
+          <div v-show="show == 2" key="2">第二个文本</div>
+          <div v-show="show == 3" key="3">第三个文本</div>
+       </transition-group>
+   </div>
   </div>
+  
 </template>
 <script>
  import {request_get} from '../../../../ajax/request.js';
@@ -102,7 +123,7 @@ export default {
 		  bannerimg4: '',
 		  bannerimg5: '',
 		  bannerList: [],
-
+		  show: 0
 	  }
   },
   computed: {
@@ -155,12 +176,32 @@ export default {
 	  getStyle(index) {
 		  console.log(index)
 		  return 'left:-' + (index*550) +'px';
+	  },
+	  goLeft() {
+
+	  },
+	  goRight() {
+
 	  }
 	 
   }
 };
 </script>
 <style scoped>
+ .slide-enter-active{
+ 　　　　transition:all .5s linear;
+   }
+   .slide-leave-active{
+        transition:all .1s linear;
+   }
+   .slide-enter{
+        transform: translateX(-100%);
+        opacity: 0;
+   }
+   .slide-leave-to{
+       transform: translateX(110%);
+       opacity: 0;
+   }
 .maincontainer{
 	display: flex;
 	justify-content: space-between;
@@ -254,6 +295,20 @@ export default {
 	height: 100%;
 	margin-right: 10px;
 	overflow: hidden;
+	position: relative;
+}
+.iconLeft,.iconRight{
+	position: absolute;
+	top: 50px;
+	width: 50px;
+	height: 50px;
+	background-color: #aaa;
+}
+.iconLeft{
+	left: 0;
+}
+.iconRight{
+	right: 0;
 }
 .slidecontent{
 	width: 2750px;
