@@ -33,20 +33,33 @@
         <div class="minsu">
           <ul>
             <li v-for="minsu in minsulist" v-bind:key='minsu.productId'>
-              <img :src="minsu.coverImage" alt="">
+              <img :src="minsu.coverImage" class="minsuimg"/>
+              <img src="https://p0.meituan.net/mmc/35ad1f9253761ea6ff822b5e659f234f3758.png" class="avatar"/>
+              <div class="minsutitle">{{minsu.title}}</div>
+              <div class="subtitle">整套{{minsu.layoutRoom}}居室·可住{{minsu.maxGuestNumber}}人 | {{minsu.locationArea}}</div>
+              <div class="price">￥{{minsu.price}}</div>
             </li>
           </ul>
         </div>
     </div>
     <div>
-      <div>
-        <contentTitle
+      <contentTitle
           option_title="猜你喜欢"
           v-bind:option_list="likeoptionlist"
           :selectindex="likeindex"
           option_color="rgb(88, 178, 216)"
         ></contentTitle>
-      </div>
+        <div class="like">
+          <ul>
+            <li v-for="like in likelist" v-bind:key='like.itemId'>
+              <img :src="like.imgUrl" class="minsuimg"/>
+              <div class="minsutitle" style="max-width: 100%;margin-top: 5px;">{{like.title}}</div>
+              <starFive score='like.score' commentNum='like.commentNum'></starFive>
+              <div class="subtitle">{{like.areaName||' '}}</div>
+              <div class="lowPrice">￥ <span>{{like.lowPrice}}</span> 起</div>
+            </li>
+          </ul>
+        </div>
     </div>
   </div>
 
@@ -55,11 +68,13 @@
 
 import {request_get} from '../../../../ajax/request.js';
 import contentTitle from './contentTitle'
+import starFive from '../../../../components/common/star-five'
   
 export default {
   name: "",
   components: {
     contentTitle,
+    starFive,
   },
 
   data(){
@@ -87,14 +102,12 @@ export default {
   methods: {
     requestDatas(that) {
       console.log("请求数据");
-
       // 电影
       request_get("/ptapi/getComingFilms?ci=56&limit=10")
         .then(function(res) {
           console.log("电影");
           res.data.data.coming.forEach(function(ret) {
             ret.img = ret.img.replace(/w.h\//g, "");
-            console.log(ret.img);
           });
           that.filmlist = res.data.data.coming;
         })
@@ -103,12 +116,7 @@ export default {
         });
       // /民宿
       request_get("/ptapi/minsu?cityId=310100").then(function(res) {
-        console.log(res);
         that.minsulist = res.data.productList;
-        console.log(that.minsulist);
-        that.minsulist.forEach(function(itm){
-          console.log(itm.coverImage);
-        })
       });
 
       // // 民宿城市
@@ -148,7 +156,10 @@ export default {
 
       // // 猜你喜欢
       request_get("/ptapi/recommends").then(function(res) {
-        console.log(res);
+        console.log(res.imgUrl);
+        res.data.forEach(function(ret) {
+            ret.imgUrl = ret.imgUrl.replace(/w.h\//g, "");
+          });
         that.likelist = res.data;
       });
     },
@@ -166,11 +177,16 @@ export default {
       this.leftPos = this.leftPos-240*5;
       this.page = this.page+1;
     },
-
-
     /////选择城市
     changeAction: function(data){
       console.log(data);
+      let city = this.minsucitylist[data.index];
+      // console.log(this.minsulist[data]);
+      console.log(city.cityId)
+      let that = this;
+       request_get("/ptapi/minsu?cityId=" + city.cityId).then(function(res) {
+        that.minsulist = res.data.productList;
+      });
     }
   }
 };
@@ -252,21 +268,86 @@ export default {
   width: 94%;
   margin: 0 auto;
   padding: 1%;
+  clear: both;
+}
+.like
+{
+  width: 94%;
+  margin: 0 auto;
+  padding: 1%;
+  clear: both;
 }
 
 .minsu ul li
 {
   width: 30.6666666%;
   float: left;
-  height: 200px;
+  height: 250px;
   margin-left: 1%;
   margin-right: 1%;
-  margin-bottom: 30px;
+  margin-bottom: 100px;
+  position: relative;
 }
-.minsu ul li img
+
+.like ul li
+{
+  width: 17.6666666%;
+  /* float: left; */
+  height: 150px;
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-bottom: 120px;
+}
+
+.minsuimg
 {
   width: 100%;
   height: 100%;
-  border-radius: 10px;
+  border-radius: 5px;
 }
+
+.avatar
+{
+  width: 50px;
+  height: 50px;
+  border: solid 1px white;
+  border-radius: 50%;
+  margin-top: -25px;
+  position: absolute;
+  right: 30px;
+}
+.minsutitle
+{
+  font-size: 17px;
+  margin-top: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 80%;
+}
+.subtitle
+{
+  font-size: 12px;
+  color: rgb(140, 140, 140);
+  min-height: 20px;
+}
+.price
+{
+  font-size: 17px;
+  color: red;
+  font-weight: 700;
+}
+
+.lowPrice
+{
+  color: rgb(252, 102, 33);
+  font-size: 14px;
+}
+
+.lowPrice span
+{
+  font-size: 20px;
+  font-weight: 900;
+}
+
 </style>
