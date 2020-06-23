@@ -16,11 +16,71 @@
   		</div>
   		<div class="sortlist">
   			<ul>
-  				<li>我的美团</li>
-  				<li>手机APP</li>
-  				<li>商家中心</li>
-  				<li>美团规则</li>
-  				<li>网站导航</li>
+  				<li class="menu" v-if="showsubmenu[0]" data-index="0" @mouseover="showSubmenu($event)" @mouseout="hideSubmenu($event)" :style="getStyle(0)">
+				  <a href="" class="menutitle">我的美团</a>
+				  <ul class="submenu" v-show="showsubmenu[0].show">
+				  	<li>
+					  <a href="">我的订单</a>
+					</li>
+					<li>
+					  <a href="">我的收藏</a>
+					</li>
+					<li>
+					  <a href="">抵用券</a>
+					</li>
+					<li>
+					  <a href="">账户设置</a>
+					</li>
+				  </ul>
+				</li>
+  				<li><a href="" class="menutitle">手机APP</a></li>
+  				<li class="menu noclick" v-if="showsubmenu[1]" data-index="1" @mouseover="showSubmenu($event)" @mouseout="hideSubmenu($event)" :style="getStyle(1)">
+				  商家中心
+				  <ul class="submenu" v-show="showsubmenu[1].show">
+				  	<li>
+					  <a href="">美团餐饮商户中心</a>
+					</li>
+					<li>
+					  <a href="">登录商家中心</a>
+					</li>
+					<li>
+					  <a href="">美团智能收银</a>
+					</li>
+					<li>
+					  <a href="">我想合作</a>
+					</li>
+					<li>
+					  <a href="">手机免费开店</a>
+					</li>
+					<li>
+					  <a href="">餐饮代理商招募</a>
+					</li>
+					<li>
+					  <a href="">商家申请开票</a>
+					</li>
+					<li>
+					  <a href="">免费合作美团排队</a>
+					</li>
+				  </ul>
+				</li>
+  				<li class="menu noclick" v-if="showsubmenu[2]" data-index="2" @mouseover="showSubmenu($event)" @mouseout="hideSubmenu($event)" :style="getStyle(2)">
+				  美团规则
+				  <ul class="submenu" v-show="showsubmenu[2].show">
+				  	<li>
+					  <a href="">规则中心</a>
+					</li>
+					<li>
+					  <a href="">规则目录</a>
+					</li>
+					<li>
+					  <a href="">规则评议院</a>
+					</li>
+				  </ul>
+				</li>
+  				<li class="noclick" data-index="3">
+				  网站导航
+				  <ul></ul>
+				</li>
   			</ul>
   		</div>
   	</div>
@@ -28,11 +88,44 @@
 </template>
 <script>
 export default {
-  name: "",
-  components: {}
+  data() {
+	  return {
+		 showsubmenu: [
+			 {show: 0},
+			 {show: 0},
+			 {show: 0},
+		 ],
+
+	  }
+  },
+  created(){
+	  console.log(this.showsubmenu)
+	  console.log(this.showsubmenu[0].show)
+  },
+  methods: {
+	  showSubmenu(e) {
+		  console.log(8888)
+		  console.log(e.target.dataset.index)
+		  let index = e.target.dataset.index;
+		  
+		  this.showsubmenu[index].show = 1;
+		  console.log(this.showsubmenu[0])
+	  },
+	  hideSubmenu(e) {
+		  let index = e.target.dataset.index;
+		  this.showsubmenu[index].show = 0;
+	  },
+	  getStyle(index) {
+		  if(this.showsubmenu[index].show){
+		  	return 'background-color: #fff;border-color: #e5e5e5';
+		  }else{
+			return 'background-color: transparent;border-color: transparent';
+		  }
+	  }
+  }
 };
 </script>
-<style>
+<style scoped>
 .header{
 	height: 35px;
 	line-height: 35px;
@@ -48,6 +141,32 @@ export default {
 	display: flex;
 }
 .sortlist li{
+}
+.menu{
 	padding: 0 10px;
+	position: relative;
+	border: 1px solid transparent;
+	border-width: 0 1px;
+}
+.menutitle:hover,.noclick:hover{
+	color: #FE8C00;
+}
+.submenu{
+	position: absolute;
+	width: 100%;
+	left: -1px;
+	top: 95%;
+	border: 1px solid #e5e5e5;
+	border-top: none;
+}
+.submenu li{
+	width: 100%;
+	text-align: center;
+}
+.submenu li a{
+	display: block;
+}
+.submenu li a:hover{
+	color: #FE8C00;
 }
 </style>
