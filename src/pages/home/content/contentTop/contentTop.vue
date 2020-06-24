@@ -14,7 +14,7 @@
 				</li>
   			</ul>
   		</div>
-		<div class="categorydetail" v-if="istipitemshowed">
+		<div class="categorydetail" v-show="istipitemshowed">
 			<div class="categorydetaillist" v-for="(categoryrightitem, index1) in categoryRightList">
 				<div v-for="(detailitem, index2) in categoryrightitem.rightPcHomeCategoryList">
 					<div class="detailtitle">

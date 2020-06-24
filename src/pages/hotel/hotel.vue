@@ -6,22 +6,25 @@
             <div class="condition">
                 <div class="citywrapper">
                     <label class="c-box citybox">
-                        <span>入住城市</span>
-                        <input type="text">
+                        <span class="inputtitle">入住城市</span>
+                        <input type="text" value="合肥">
                     </label>
                 </div>
                 <div class="datewrapper">
                     <div class="enterwrapper">
                         <label class="c-box enterbox">
-                            <span>入住</span>
-                            <input type="text">
+                            <span class="inputtitle">入住</span>
+                            <input type="text" value="2021-03-04" class="dateinput">
+                            <span class="week">星期三</span>
+                            <i></i>
                         </label>
                     </div>
                     <span class="line">-</span>
                     <div class="leavewrapper">
                         <label class="c-box leavebox">
-                            <span>离店</span>
-                            <input type="text">
+                            <span class="inputtitle">离店</span>
+                            <input type="text" value="2020-09-08" class="dateinput">
+                            <span class="week">星期三</span>
                         </label>
                     </div>
                 </div>
@@ -80,9 +83,10 @@ export default {
     padding: 0 10px;
 }
 .c-box input{
-    width: 180px;
+    width: 80px;
     height: 100%;
     border: none;
+    color: #666;
 }
 .datewrapper{
     display: inline-block;
@@ -101,14 +105,25 @@ export default {
 .keywordwrapper{
     display: inline-block;
 }
+.keywordwrapper input{
+    width: 180px;
+}
 .searchbtn{
     display: inline-block;
     float: right;
     height: 35px;
     line-height: 35px;
     background-color: #FFC300;
-    padding: 0 20px;
+    padding: 0 40px;
     border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
 }
-
+.inputtitle{
+    color: #999;
+}
+.week,.dateinput{
+    color: #999;
+}
 </style>
