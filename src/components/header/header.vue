@@ -16,7 +16,7 @@
   		</div>
   		<div class="sortlist">
   			<ul>
-  				<li class="menu" v-if="showsubmenu[0]" data-index="0" @mouseover="showSubmenu($event)" @mouseout="hideSubmenu($event)" :style="getStyle(0)">
+  				<li class="menu" v-if="showsubmenu[0]" data-index="0" @mouseover="showSubmenu(0)" @mouseout="hideSubmenu(0)" :style="getStyle(0)">
 				  <a href="" class="menutitle">我的美团</a>
 				  <ul class="submenu" v-show="showsubmenu[0].show">
 				  	<li>
@@ -34,9 +34,9 @@
 				  </ul>
 				</li>
   				<li><a href="" class="menutitle">手机APP</a></li>
-  				<li class="menu noclick" v-if="showsubmenu[1]" data-index="1" @mouseover="showSubmenu($event)" @mouseout="hideSubmenu($event)" :style="getStyle(1)">
+  				<li class="menu noclick" v-if="showsubmenu[1]" data-index="1" @mouseover="showSubmenu(1)" @mouseout="hideSubmenu(1)" :style="getStyle(1)">
 				  商家中心
-				  <ul class="submenu" v-show="showsubmenu[1].show">
+				  <ul class="submenu submenubig" v-show="showsubmenu[1].show">
 				  	<li>
 					  <a href="">美团餐饮商户中心</a>
 					</li>
@@ -63,7 +63,7 @@
 					</li>
 				  </ul>
 				</li>
-  				<li class="menu noclick" v-if="showsubmenu[2]" data-index="2" @mouseover="showSubmenu($event)" @mouseout="hideSubmenu($event)" :style="getStyle(2)">
+  				<li class="menu noclick" v-if="showsubmenu[2]" data-index="2" @mouseover="showSubmenu(2)" @mouseout="hideSubmenu(2)" :style="getStyle(2)">
 				  美团规则
 				  <ul class="submenu" v-show="showsubmenu[2].show">
 				  	<li>
@@ -91,9 +91,9 @@ export default {
   data() {
 	  return {
 		 showsubmenu: [
-			 {show: 0},
-			 {show: 0},
-			 {show: 0},
+			 {show: false},
+			 {show: false},
+			 {show: false},
 		 ],
 
 	  }
@@ -103,17 +103,11 @@ export default {
 	  console.log(this.showsubmenu[0].show)
   },
   methods: {
-	  showSubmenu(e) {
-		  console.log(8888)
-		  console.log(e.target.dataset.index)
-		  let index = e.target.dataset.index;
-		  
-		  this.showsubmenu[index].show = 1;
-		  console.log(this.showsubmenu[0])
+	  showSubmenu(index) {
+		  this.showsubmenu[index].show = true;
 	  },
-	  hideSubmenu(e) {
-		  let index = e.target.dataset.index;
-		  this.showsubmenu[index].show = 0;
+	  hideSubmenu(index) {
+		  this.showsubmenu[index].show = false;
 	  },
 	  getStyle(index) {
 		  if(this.showsubmenu[index].show){
@@ -126,6 +120,9 @@ export default {
 };
 </script>
 <style scoped>
+a{
+	color: #999;
+}
 .header{
 	height: 35px;
 	line-height: 35px;
@@ -154,10 +151,11 @@ export default {
 .submenu{
 	position: absolute;
 	width: 100%;
-	left: -1px;
+	right: -1px;
 	top: 95%;
 	border: 1px solid #e5e5e5;
 	border-top: none;
+	background-color: #fff;
 }
 .submenu li{
 	width: 100%;
@@ -168,5 +166,8 @@ export default {
 }
 .submenu li a:hover{
 	color: #FE8C00;
+}
+.submenubig{
+	width: 160%;
 }
 </style>
