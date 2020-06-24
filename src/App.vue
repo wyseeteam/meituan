@@ -21,6 +21,9 @@ body,html,div, ul, li, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, ol, form, input, t
   padding: 0;
   font-size: 12px;
 }
+body{
+  background-color: rgb(248,248,248);
+}
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

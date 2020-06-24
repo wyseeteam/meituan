@@ -42,9 +42,9 @@
 			  	<div class="slidecontent">
 				  	<transition-group name="fadeIn">
 					  	<div class="slidecontentli" v-for="(item, index) in bannerList" :key="item.url" v-show="index === currentBannerIndex">
-					 		<a href="" class="link-3">
-				  			<img v-bind:src="item.url">
-				  			</a>
+					 		<router-link to="/hotel" class="link-3">
+				  				<img v-bind:src="item.url">
+							</router-link>
 						</div>
 					</transition-group>
 				</div>
