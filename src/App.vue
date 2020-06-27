@@ -17,7 +17,7 @@ export default {
 
 <style>
 /* 同一行display:inline-block出现空隙，父级设置font-size:0,防止覆盖 */
-body,html,div, span, ul, li, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, ol, form, input, textarea, th, td, select {
+body,html,div, span, ul, li, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, ol, form, input, textarea, th, td, select,a {
   margin: 0;
   padding: 0;
   font-size: 12px;

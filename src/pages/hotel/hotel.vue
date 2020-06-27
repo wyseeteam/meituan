@@ -33,7 +33,24 @@
                 </div>
                 <span class="searchbtn">搜索</span>
             </div>
+            <div class="filter">
+                <div class="searchrowwrap">
+                    <div class="searchrow">
+                        <div class="searchtitle">位置</div>
+                        <div class="searchlist">
+                            <a href="">热门</a>
+                            <a href="">行政圈/商圈</a>
+                            <a href="">地铁站</a>
+                            <a href="">高校</a>
+                            <a href="">车站/机场</a>
+                            <a href="">旅游景点</a>
+                            <a href="">医院</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        
     </div>
 </template>
 
@@ -125,5 +142,16 @@ export default {
 }
 .week,.dateinput{
     color: #999;
+}
+.searchtitle{
+    width: 60px;
+    float: left;
+}
+.filter{
+    padding: 20px;
+}
+.searchlist a{
+    color: #333;
+    padding: 0 10px;
 }
 </style>
