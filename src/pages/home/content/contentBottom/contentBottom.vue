@@ -103,7 +103,7 @@ export default {
     requestDatas(that) {
       console.log("请求数据");
       // 电影
-      request_get("/ptapi/getComingFilms?ci=56&limit=10")
+      request_get("/api/ptapi/getComingFilms?ci=56&limit=10")
         .then(function(res) {
           console.log("电影");
           res.data.data.coming.forEach(function(ret) {
@@ -115,12 +115,12 @@ export default {
           console.log(err);
         });
       // /民宿
-      request_get("/ptapi/minsu?cityId=310100").then(function(res) {
+      request_get("/api/ptapi/minsu?cityId=310100").then(function(res) {
         that.minsulist = res.data.productList;
       });
 
       // // 民宿城市
-      request_get("/ptapi/minsuCitys?fetchSize=10").then(function(res) {
+      request_get("/api/ptapi/minsuCitys?fetchSize=10").then(function(res) {
         console.log(res);
         if (!res.data.cityList || res.data.cityList.length == 0) {
           that.minsucitylist = [
@@ -155,7 +155,7 @@ export default {
       });
 
       // // 猜你喜欢
-      request_get("/ptapi/recommends").then(function(res) {
+      request_get("/api/ptapi/recommends").then(function(res) {
         console.log(res.imgUrl);
         res.data.forEach(function(ret) {
             ret.imgUrl = ret.imgUrl.replace(/w.h\//g, "");
@@ -184,7 +184,7 @@ export default {
       // console.log(this.minsulist[data]);
       console.log(city.cityId)
       let that = this;
-       request_get("/ptapi/minsu?cityId=" + city.cityId).then(function(res) {
+       request_get("/api/ptapi/minsu?cityId=" + city.cityId).then(function(res) {
         that.minsulist = res.data.productList;
       });
     }

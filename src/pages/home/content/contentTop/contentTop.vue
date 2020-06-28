@@ -132,7 +132,7 @@ export default {
   },
   methods: {
 	   async initData() {
- 		let res = await request_get('/');
+ 		let res = await request_get('/api');
 		var txt = res.data.match(/AppData.*?<\/script>/g)[0].
 		replace(/<\/script>/,'').
 		replace(/AppData\s+\=/,'').

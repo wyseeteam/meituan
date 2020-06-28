@@ -66,12 +66,8 @@
                         <div class="searchdetailwrapper">
                             <div class="searchdetail">
                                 <div class="filterrow">
-                                    <a href="">dddd</a>
-                                    <a href="">dddd</a>
-                                    <a href="">dddd</a>
-                                    <a href="">dddd</a>
-                                    <a href="">dddd</a>
-                                    <a href="">dddd</a>
+                                    <a href="" v-for="(item, index) in areasInfo">{{item.name}}</a>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -86,18 +82,27 @@
 <script>
 import headTop from '../../components/header/header'
 import search from '../../components/common/search'
+import { request_get } from '../../ajax/request'
 export default {
     data() {
         return {
-
+            areasInfo: []
         }
     },
     components: {
         headTop,
         search
     },
+    created() {
+        this.getAreaList();
+    },
     methods: {
-
+        async getAreaList() {
+            let res = await request_get('/jiudian/group/v2/area/list?utm_medium=pc&version_name=999.9&cityId=56&X-FOR-WITH=HCnuEtc%2BAIlOTA7AycE5ERzeb5tyFztDOXmvUjz9WgzSmRtgFZP8wfujURCeE4TeZ4eH%2BdzloSFO%2BlX3fD6ChqYcZbS1GdT7toQ%2FCvqul%2Bij4HSzw8FrV%2FVzoPpbalwYWGIy%2FN0Tdcg8knq6%2FfcfGRNP3lH7GXvqXkKOvB9i9dBd12bo%2Bo7Holx9PToy31mJZ87%2FA%2BhQbC38uWEj9SvRR8BysPhpJnFNNVsWOCPvrm4%3D');
+            let areasInfo = res.data.data.areasinfo;
+            this.areasInfo = areasInfo;
+            console.log(areasInfo)
+        }
     },
 }
 </script>

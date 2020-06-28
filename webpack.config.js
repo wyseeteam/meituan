@@ -56,6 +56,13 @@ module.exports = {
         pathRewrite:{  
           '^/api': '' 
         }
+      },
+      '/jiudian': {
+        target:'https://ihotel.meituan.com/',
+        changeOrigin:true,
+        pathRewrite:{
+          '^/jiudian':''
+        }
       }
     }
   },
