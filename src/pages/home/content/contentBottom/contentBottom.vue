@@ -54,7 +54,7 @@
             <li v-for="like in likelist" v-bind:key='like.itemId'>
               <img :src="like.imgUrl" class="minsuimg"/>
               <div class="minsutitle" style="max-width: 100%;margin-top: 5px;">{{like.title}}</div>
-              <starFive score='like.score' commentNum='like.commentNum'></starFive>
+              <starFive :score='like.score' commentNum='like.commentNum'></starFive>
               <div class="subtitle">{{like.areaName||' '}}</div>
               <div class="lowPrice">￥ <span>{{like.lowPrice}}</span> 起</div>
             </li>
