@@ -258,6 +258,17 @@
           </span>
         </div>
       </div>
+      <div class="contentcontainer">
+          <div class="poiitem">
+              <div class="poilist">
+                  <div class="poi-item" v-for="(item, index) in poiInfo">
+{{item.multiplePoiFeature.poiName}}
+                  </div>
+              </div>
+              <div class="poipage"></div>
+          </div>
+          <div id="map"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -280,7 +291,9 @@ export default {
       hospitalInfo: [], //医院
       cCategoryIndex: 1, //分类索引
       hotelTypeInfo: [], //酒店类型
-      hotelBrandInfo: [] //品牌
+      hotelBrandInfo: [], //品牌
+      poiids: [],//酒店id
+      poiInfo: [],//酒店列表
     };
   },
   components: {
@@ -295,6 +308,7 @@ export default {
       this.getAreaList();
       this.getSubwayList();
       this.getHotelFilterList();
+      this.getHotelList();
     },
     async getAreaList() {
       let res = await request_get(
@@ -369,6 +383,23 @@ export default {
       console.log(Object.keys(res.data.data[3].values[4])[0]);
       this.hotelTypeInfo = res.data.data[3].values;
       this.hotelBrandInfo = res.data.data[5].values;
+    },
+    async getHotelList() {
+        let res = await request_get(
+            "/jiudian/hbsearch/HotelSearch?utm_medium=pc&version_name=999.9&cateId=20&attr_28=129&uuid=48D1058348DCE928091FF5391F53D00E6C5CB8477ED806309B9DAF7454E05783%401593415106328&cityId=56&offset=0&limit=20&startDay=20200629&endDay=20200629&q=&sort=defaults&X-FOR-WITH=CXa14Wg8s%2FYM4AMbtwuj1aHLyZkq2EMGoZ9ejcONv6mx4qpBezHK1uXrMhwrANsofo7rKNTZiNxj%2BT62rkJlWVgFhTjCM00y5yfPla308eT9pko6GSAuJ8xZDOLr8jAsjgmEyQNdBqKGfhVeYfMh1oT1qzrXOUvy35qLWHJcmNe%2BRMUIhMlffIFB0AagRlbeJdymcaZOqaofQ%2FZwCjcSHQ%3D%3D"
+        );
+        this.poiids = res.data.ct_pois;
+        for(var i in this.poiids){
+            this.getHotelContents(this.poiids[i].poiid);
+        }
+        
+    },
+    async getHotelContents(id) {
+        let data = await request_get(
+            "/jiudian/group/v2/poi/detail/service?utm_medium=pc&version_name=999.9&poiId="+ id
+        );
+        this.poiInfo.push(data.data.data);
+        console.log(this.poiInfo)
     },
     showSubareas(index) {
       this.cAreaIndex = index;
@@ -530,4 +561,11 @@ export default {
 .searchex span{
     font-size: 16px;
 }
+.poiitem{
+    width: 900px;
+}
+.poilist{
+    background-color: #fff;
+}
+
 </style>
