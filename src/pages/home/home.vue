@@ -2,10 +2,12 @@
   <div>
     <head-top></head-top>
     <search></search>
-    <contentTop></contentTop>
-    <contentBottom></contentBottom>
-    <navigation></navigation>
-    <foot-bottom></foot-bottom>
+    <div class="container">
+      <contentTop></contentTop>
+      <contentBottom></contentBottom>
+      <navigation></navigation>
+      <foot-bottom></foot-bottom>
+    </div>
   </div>
 </template>
 <script>
@@ -29,5 +31,8 @@ export default {
 };
 </script>
 <style>
-
+.container{
+  width: 1200px;
+  margin: 0 auto;
+}
 </style>

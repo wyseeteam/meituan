@@ -195,8 +195,6 @@ opacity: 0;
 .maincontainer{
 	display: flex;
 	justify-content: space-between;
-	width: 1200px;
-	margin: 0 auto;
 }
 .category{
 	width: 235px;
@@ -265,11 +263,11 @@ opacity: 0;
 .hometype{
 	position: absolute;
 	top: -50px;
-	font-size: 16px;
 	font-weight: 700;
 }
 .hometype a{
 	margin: 0 20px;
+	font-size: 16px;
 }
 
 .userinfo{
