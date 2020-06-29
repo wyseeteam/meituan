@@ -1,5 +1,5 @@
 <template>
-  <div>footer</div>
+  <div style="width:94%; margin: 0 auto;">footer</div>
 </template>
 <script>
 export default {
