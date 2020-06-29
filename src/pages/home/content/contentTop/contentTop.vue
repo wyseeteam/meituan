@@ -14,7 +14,7 @@
 				</li>
   			</ul>
   		</div>
-		<div class="categorydetail" v-if="istipitemshowed">
+		<div class="categorydetail" v-show="istipitemshowed">
 			<div class="categorydetaillist" v-for="(categoryrightitem, index1) in categoryRightList">
 				<div v-for="(detailitem, index2) in categoryrightitem.rightPcHomeCategoryList">
 					<div class="detailtitle">
@@ -42,9 +42,9 @@
 			  	<div class="slidecontent">
 				  	<transition-group name="fadeIn">
 					  	<div class="slidecontentli" v-for="(item, index) in bannerList" :key="item.url" v-show="index === currentBannerIndex">
-					 		<a href="" class="link-3">
-				  			<img v-bind:src="item.url">
-				  			</a>
+					 		<router-link to="/hotel" class="link-3">
+				  				<img v-bind:src="item.url">
+							</router-link>
 						</div>
 					</transition-group>
 				</div>
@@ -132,7 +132,7 @@ export default {
   },
   methods: {
 	   async initData() {
- 		let res = await request_get('/');
+ 		let res = await request_get('/api');
 		var txt = res.data.match(/AppData.*?<\/script>/g)[0].
 		replace(/<\/script>/,'').
 		replace(/AppData\s+\=/,'').
