@@ -259,15 +259,51 @@
         </div>
       </div>
       <div class="contentcontainer">
-          <div class="poiitem">
-              <div class="poilist">
-                  <div class="poi-item" v-for="(item, index) in poiInfo">
-{{item.multiplePoiFeature.poiName}}
-                  </div>
+        <div class="poiitem">
+          <div class="poilist">
+            <div class="poititle">
+              <a href="javascript:;">智能排序</a>
+            </div>
+            <div class="poi-item" v-for="(item, index) in poiInfo">
+              <div class="pic">
+                <a href>
+                  <img v-bind:src="item.frontImg.replace('w.h','320.0')" />
+                </a>
               </div>
-              <div class="poipage"></div>
+              <div class="poidetail">
+                <h1 class="poiinfoheader">
+                  <a href="javascript:;">
+                    <i>1</i>
+                    {{item.name}}
+                  </a>
+                  <span>{{item.hotelStar}}</span>
+                </h1>
+                <div class="poicolumn">
+                  <div class="poiinfo">
+                    <div class="poiaddress">
+                      <span>[{{item.areaName}}]</span>
+                      {{item.addr}}
+                      <a href="javascript:;"><i></i>查看地图</a>
+                    </div>
+                    <div class="poiicon">
+                      <div v-for="(sitem, sindex) in item.serviceIconsInfo">
+                        <img v-bind:src="sitem.imgUrl">
+                        <span>{{sitem.attrDesc}}</span>
+                      </div>
+                    </div>
+                    <div class="poitag">
+                    
+                    </div>
+                  </div>
+                  <div class="poiscore"></div>
+                  <div class="applets"></div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div id="map"></div>
+          <div class="poipage"></div>
+        </div>
+        <div id="map"></div>
       </div>
     </div>
   </div>
@@ -292,8 +328,8 @@ export default {
       cCategoryIndex: 1, //分类索引
       hotelTypeInfo: [], //酒店类型
       hotelBrandInfo: [], //品牌
-      poiids: [],//酒店id
-      poiInfo: [],//酒店列表
+      poiids: [], //酒店id
+      poiInfo: [] //酒店列表
     };
   },
   components: {
@@ -384,22 +420,34 @@ export default {
       this.hotelTypeInfo = res.data.data[3].values;
       this.hotelBrandInfo = res.data.data[5].values;
     },
+    computed: {
+     
+    },
     async getHotelList() {
-        let res = await request_get(
-            "/jiudian/hbsearch/HotelSearch?utm_medium=pc&version_name=999.9&cateId=20&attr_28=129&uuid=48D1058348DCE928091FF5391F53D00E6C5CB8477ED806309B9DAF7454E05783%401593415106328&cityId=56&offset=0&limit=20&startDay=20200629&endDay=20200629&q=&sort=defaults&X-FOR-WITH=CXa14Wg8s%2FYM4AMbtwuj1aHLyZkq2EMGoZ9ejcONv6mx4qpBezHK1uXrMhwrANsofo7rKNTZiNxj%2BT62rkJlWVgFhTjCM00y5yfPla308eT9pko6GSAuJ8xZDOLr8jAsjgmEyQNdBqKGfhVeYfMh1oT1qzrXOUvy35qLWHJcmNe%2BRMUIhMlffIFB0AagRlbeJdymcaZOqaofQ%2FZwCjcSHQ%3D%3D"
-        );
-        this.poiids = res.data.ct_pois;
-        for(var i in this.poiids){
-            this.getHotelContents(this.poiids[i].poiid);
-        }
-        
+      let res = await request_get(
+        "/jiudian/hbsearch/HotelSearch?utm_medium=pc&version_name=999.9&cateId=20&attr_28=129&uuid=48D1058348DCE928091FF5391F53D00E6C5CB8477ED806309B9DAF7454E05783%401593415106328&cityId=56&offset=0&limit=20&startDay=20200629&endDay=20200629&q=&sort=defaults&X-FOR-WITH=CXa14Wg8s%2FYM4AMbtwuj1aHLyZkq2EMGoZ9ejcONv6mx4qpBezHK1uXrMhwrANsofo7rKNTZiNxj%2BT62rkJlWVgFhTjCM00y5yfPla308eT9pko6GSAuJ8xZDOLr8jAsjgmEyQNdBqKGfhVeYfMh1oT1qzrXOUvy35qLWHJcmNe%2BRMUIhMlffIFB0AagRlbeJdymcaZOqaofQ%2FZwCjcSHQ%3D%3D"
+      );
+      this.poiids = res.data.ct_pois;
+      this.poiInfo = res.data.data.searchresult;
+      for(var i in this.poiids){
+          // this.getHotelContents(this.poiids[i].poiid);
+          var data = await request_get(
+            "/jiudian/group/v2/poi/detail/service?utm_medium=pc&version_name=999.9&poiId=" +
+             this.poiids[i].poiid
+          );
+          this.poiInfo[i].serviceIconsInfo = [{id:1,name:'fss'}];
+      console.log(9)
+      }
+      console.log(7)
+      console.log(this.poiInfo);
     },
     async getHotelContents(id) {
-        let data = await request_get(
-            "/jiudian/group/v2/poi/detail/service?utm_medium=pc&version_name=999.9&poiId="+ id
-        );
-        this.poiInfo.push(data.data.data);
-        console.log(this.poiInfo)
+      let data = await request_get(
+        "/jiudian/group/v2/poi/detail/service?utm_medium=pc&version_name=999.9&poiId=" +
+          id
+      );
+      this.poiInfo.push(data.data.data);
+      console.log(this.poiInfo);
     },
     showSubareas(index) {
       this.cAreaIndex = index;
@@ -422,8 +470,9 @@ export default {
   width: 1200px;
   margin: 20px auto 0;
 }
-.filtercontainer{
-    background-color: #fff;
+.filtercontainer {
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
 }
 .condition {
   background-color: #ebebeb;
@@ -555,17 +604,55 @@ export default {
   font-size: 0;
   vertical-align: top;
 }
-.searchex{
-    padding: 20px;
+.searchex {
+  padding: 20px;
 }
-.searchex span{
-    font-size: 16px;
+.searchex span {
+  font-size: 16px;
 }
-.poiitem{
-    width: 900px;
+.poiitem {
+  width: 900px;
 }
-.poilist{
-    background-color: #fff;
+.poilist {
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
 }
+.contentcontainer {
+}
+.poititle {
+  padding: 20px;
+  border-bottom: 1px solid #e5e5e5;
+}
+.poititle a {
+  color: #fe8c00;
+}
+.poi-item {
+  padding: 20px;
+}
+.pic {
+  float: left;
+}
+.poidetail {
+  margin-left: 300px;
+}
+.poiinfoheader{
+}
+.poiinfoheader a{
+  color: #fe8c00;
+  font-size: 18px;
 
+}
+.poiinfoheader span{
+  color: #999;
+}
+.poiaddress span{
+  color: #fe8c00;
+}
+.poiicon img{
+  width: 20px;
+  height: 20px;
+}
+.poiicon div{
+  display: inline-block;
+}
 </style>
