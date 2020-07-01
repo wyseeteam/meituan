@@ -1,5 +1,5 @@
 <template>
-  <div class="bg">
+  <div class="bg" style="margin-top: 30px;">
     <div>
         <contentTitle
           option_title="猫眼电影"
@@ -54,7 +54,7 @@
             <li v-for="like in likelist" v-bind:key='like.itemId'>
               <img :src="like.imgUrl" class="minsuimg"/>
               <div class="minsutitle" style="max-width: 100%;margin-top: 5px;">{{like.title}}</div>
-              <starFive :score='like.score' commentNum='like.commentNum'></starFive>
+              <starFive :score='like.score*1' :commentNum='like.commentNum*1'></starFive>
               <div class="subtitle">{{like.areaName||' '}}</div>
               <div class="lowPrice">￥ <span>{{like.lowPrice}}</span> 起</div>
             </li>
@@ -198,8 +198,9 @@ export default {
   height: 300px;
   margin-right: 20px;
 }
+
 .imglist {
-  width: 94%;
+  width: 1200px;
   margin: 1px auto 40px auto;
   max-height: 302px;
   overflow: hidden;
@@ -265,14 +266,14 @@ export default {
 
 .minsu
 {
-  width: 94%;
+  width: 1200px;
   margin: 0 auto;
   padding: 1%;
   clear: both;
 }
 .like
 {
-  width: 94%;
+  width: 1200px;
   margin: 0 auto;
   padding: 1%;
   clear: both;

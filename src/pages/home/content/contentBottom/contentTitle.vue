@@ -74,8 +74,7 @@ export default {
 </script>
 <style scoped>
   .title{
-    width: 94%;
-    margin-left: 3%;
+    width: 1200px;
     height: 40px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -84,6 +83,7 @@ export default {
     flex-direction: row;
     clear: both;
     border-bottom: solid 1px white;
+    margin: 0 auto;
   }
 
   .title ul 
