@@ -254,7 +254,7 @@
         </div>
         <div class="searchex">
           <span>
-            <span>22</span>家酒店符合条件
+            <span class="num">22</span>家酒店符合条件
           </span>
         </div>
       </div>
@@ -286,17 +286,22 @@
                       <a href="javascript:;"><i></i>查看地图</a>
                     </div>
                     <div class="poiicon">
-                      <div v-for="(sitem, sindex) in item.serviceIconsInfo">
+                      <div v-for="(sitem, sindex) in item.serviceIconsInfo.slice(0,4)">
                         <img v-bind:src="sitem.imgUrl">
                         <span>{{sitem.attrDesc}}</span>
                       </div>
                     </div>
                     <div class="poitag">
-                    
+                      <span class="poitagitem red">订</span>
+                      <span class="poitagitem blue" v-for="(tagitem, tagindex) in item.poiAttrTagList">{{tagitem}}</span>
                     </div>
                   </div>
-                  <div class="poiscore"></div>
-                  <div class="applets"></div>
+                  <div class="poiscore">
+                    {{item.scoreIntro.split(' ')[0].replace('分','')}}<span>分 {{item.scoreIntro.split(' ')[1]}}</span>
+                  </div>
+                  <div class="applets">
+                    <a>微信小程序预订</a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -424,7 +429,7 @@ export default {
     async getHotelList() {
       let that = this;
       let res = await request_get(
-        "/jiudian/hbsearch/HotelSearch?utm_medium=pc&version_name=999.9&cateId=20&attr_28=129&uuid=48D1058348DCE928091FF5391F53D00E6C5CB8477ED806309B9DAF7454E05783%401593415106328&cityId=56&offset=0&limit=20&startDay=20200629&endDay=20200629&q=&sort=defaults&X-FOR-WITH=CXa14Wg8s%2FYM4AMbtwuj1aHLyZkq2EMGoZ9ejcONv6mx4qpBezHK1uXrMhwrANsofo7rKNTZiNxj%2BT62rkJlWVgFhTjCM00y5yfPla308eT9pko6GSAuJ8xZDOLr8jAsjgmEyQNdBqKGfhVeYfMh1oT1qzrXOUvy35qLWHJcmNe%2BRMUIhMlffIFB0AagRlbeJdymcaZOqaofQ%2FZwCjcSHQ%3D%3D"
+        "/jiudian/hbsearch/HotelSearch?utm_medium=pc&version_name=999.9&cateId=20&attr_28=129&uuid=48D1058348DCE928091FF5391F53D00E6C5CB8477ED806309B9DAF7454E05783%401593415106328&cityId=56&offset=0&limit=20&startDay=20200702&endDay=20200702&q=&sort=defaults&X-FOR-WITH=CXa14Wg8s%2FYM4AMbtwuj1aHLyZkq2EMGoZ9ejcONv6mx4qpBezHK1uXrMhwrANsofo7rKNTZiNxj%2BT62rkJlWVgFhTjCM00y5yfPla308eT9pko6GSAuJ8xZDOLr8jAsjgmEyQNdBqKGfhVeYfMh1oT1qzrXOUvy35qLWHJcmNe%2BRMUIhMlffIFB0AagRlbeJdymcaZOqaofQ%2FZwCjcSHQ%3D%3D"
       );
       this.poiids = res.data.ct_pois;
       this.poiInfo = res.data.data.searchresult;
@@ -627,6 +632,9 @@ export default {
 .searchex span {
   font-size: 16px;
 }
+.searchex .num{
+  color: #ff8634;
+}
 .poiitem {
   width: 900px;
 }
@@ -635,6 +643,7 @@ export default {
   border: 1px solid #e5e5e5;
 }
 .contentcontainer {
+  margin-top: 20px;
 }
 .poititle {
   padding: 20px;
@@ -645,14 +654,16 @@ export default {
 }
 .poi-item {
   padding: 20px;
+  border-bottom: 1px solid #e5e5e5;
 }
 .pic {
   float: left;
 }
 .poidetail {
-  margin-left: 300px;
+  margin-left: 220px;
 }
 .poiinfoheader{
+  margin-bottom: 10px;
 }
 .poiinfoheader a{
   color: #fe8c00;
@@ -662,8 +673,18 @@ export default {
 .poiinfoheader span{
   color: #999;
 }
+.poiaddress{
+  height: 40px;
+  line-height: 20px;
+  margin-bottom: 5px;
+}
 .poiaddress span{
   color: #fe8c00;
+}
+.poiicon{
+  height: 20px;
+  margin-bottom: 5px;
+  white-space: nowrap;
 }
 .poiicon img{
   width: 20px;
@@ -671,5 +692,70 @@ export default {
 }
 .poiicon div{
   display: inline-block;
+  margin-right: 20px;
+}
+.poiicon div *{
+  vertical-align: top;
+}
+.poiicon div span{
+  color: #999;
+}
+.pic img{
+  width: 200px;
+  height: 125px;
+}
+.poicolumn{
+  overflow: hidden;
+  height: 90px;
+}
+.poiinfo{
+  float: left;
+  width: 350px;
+  padding-right: 10px;
+  border-right: 1px solid #e5e5e5;
+}
+.poitag{
+  font-size: 0;
+  height: 20px;
+}
+.poitagitem{
+  display: inline-block;
+  padding: 1px 2px;
+  margin-right: 5px;
+  height: 16px;
+  line-height: 16px;
+}
+.poitagitem.red{
+  color: #f5716e;
+  border: 1px solid #f5716e;
+}
+.poitagitem.blue{
+  color: #569cea;
+  border: 1px solid #569cea;
+}
+.poiscore{
+  float: left;
+  font-size: 24px;
+  color: #fe8c00;
+  width: 150px;
+  height: 100%;
+  line-height: 90px;
+  text-align: center;
+  border-right: 1px solid #e5e5e5;
+}
+.applets{
+  position: relative;
+  float: left;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.applets a{
+  display: inline-block;
+  padding: 0 10px;
+  background-color: #ffc300;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 2;
+  border-radius: 1em;
 }
 </style>
