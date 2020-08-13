@@ -306,7 +306,38 @@
               </div>
             </div>
           </div>
-          <div class="poipage"></div>
+          <div class="poipage">
+            <ul>
+              <li>
+                <span>1</span>
+              </li>
+              <li>
+                <a href="javascript:;">2</a>
+              </li>
+              <li>
+                <a href="javascript:;">2</a>
+              </li>
+              <li>
+                <a href="javascript:;">2</a>
+              </li>
+              <li>
+                <a href="javascript:;">2</a>
+              </li>
+              <li>
+                <a href="javascript:;">2</a>
+              </li>
+              <li>
+                <a href="javascript:;">2</a>
+              </li>
+              <li>
+                <a href="javascript:;">2</a>
+              </li>
+              <li>
+                <a href="javascript:;">2</a>
+              </li>
+
+            </ul>
+          </div>
         </div>
         <div id="map"></div>
       </div>
@@ -318,6 +349,7 @@
 import headTop from "../../components/header/header";
 import search from "../../components/common/search";
 import { request_get } from "../../ajax/request";
+import Vue from 'Vue';
 export default {
   data() {
     return {
@@ -342,6 +374,10 @@ export default {
     search
   },
   created() {
+    console.log(this)
+    console.log(this._data)
+    console.log(this.$data)
+    console.log(Vue)
     this.initData();
   },
   methods: {
@@ -641,6 +677,7 @@ export default {
 .poilist {
   background-color: #fff;
   border: 1px solid #e5e5e5;
+  margin-bottom: 20px;
 }
 .contentcontainer {
   margin-top: 20px;
@@ -757,5 +794,16 @@ export default {
   font-weight: bold;
   line-height: 2;
   border-radius: 1em;
+}
+.poipage{
+  text-align: center;
+}
+.poipage li span,.poipage li a{
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 50%;
+  border: 1px solid #999;
 }
 </style>

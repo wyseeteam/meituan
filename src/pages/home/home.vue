@@ -1,6 +1,6 @@
 <template>
   <div>
-    <head-top></head-top>
+    <head-top title="dhsdbh"></head-top>
     <search></search>
     <div class="container">
       <contentTop></contentTop>
@@ -17,7 +17,8 @@ import navigation from "../../components/common/navigation";
 import footBottom from "../../components/footer/footer";
 import contentTop from "./content/contentTop/contentTop";
 import contentBottom from "./content/contentBottom/contentBottom";
-
+import Vue from 'Vue';
+console.log(this)
 export default {
   name: "home",
   components: {
