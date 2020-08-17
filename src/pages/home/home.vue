@@ -17,8 +17,7 @@ import navigation from "../../components/common/navigation";
 import footBottom from "../../components/footer/footer";
 import contentTop from "./content/contentTop/contentTop";
 import contentBottom from "./content/contentBottom/contentBottom";
-import Vue from 'Vue';
-console.log(this)
+
 export default {
   name: "home",
   components: {

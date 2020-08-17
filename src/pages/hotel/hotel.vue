@@ -260,11 +260,14 @@
       </div>
       <div class="contentcontainer">
         <div class="poiitem">
-          <div class="poilist">
-            <div class="poititle">
+          <div class="poicontent">
+            <div class="poilist">
+  <div class="poititle">
               <a href="javascript:;">智能排序</a>
             </div>
-            <div class="poi-item" v-for="(item, index) in poiInfo">
+            <loading></loading>
+            <div>
+              <div class="poi-item" v-for="(item, index) in poiInfo">
               <div class="pic">
                 <a href>
                   <img v-bind:src="item.frontImg.replace('w.h','320.0')" />
@@ -305,8 +308,11 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="poipage">
+            
+            </div>
+            </div>
+          
+           <div class="poipage">
             <ul>
               <li>
                 <span>1</span>
@@ -338,6 +344,8 @@
 
             </ul>
           </div>
+          </div>
+          
         </div>
         <div id="map"></div>
       </div>
@@ -348,6 +356,8 @@
 <script>
 import headTop from "../../components/header/header";
 import search from "../../components/common/search";
+import loading from "../../components/common/loading";
+
 import { request_get } from "../../ajax/request";
 import Vue from 'Vue';
 export default {
@@ -371,7 +381,8 @@ export default {
   },
   components: {
     headTop,
-    search
+    search,
+    loading
   },
   created() {
     console.log(this)
@@ -465,11 +476,10 @@ export default {
     async getHotelList() {
       let that = this;
       let res = await request_get(
-        "/jiudian/hbsearch/HotelSearch?utm_medium=pc&version_name=999.9&cateId=20&attr_28=129&uuid=48D1058348DCE928091FF5391F53D00E6C5CB8477ED806309B9DAF7454E05783%401593415106328&cityId=56&offset=0&limit=20&startDay=20200702&endDay=20200702&q=&sort=defaults&X-FOR-WITH=CXa14Wg8s%2FYM4AMbtwuj1aHLyZkq2EMGoZ9ejcONv6mx4qpBezHK1uXrMhwrANsofo7rKNTZiNxj%2BT62rkJlWVgFhTjCM00y5yfPla308eT9pko6GSAuJ8xZDOLr8jAsjgmEyQNdBqKGfhVeYfMh1oT1qzrXOUvy35qLWHJcmNe%2BRMUIhMlffIFB0AagRlbeJdymcaZOqaofQ%2FZwCjcSHQ%3D%3D"
-      );
+        "/jiudian/hbsearch/HotelSearch?utm_medium=pc&version_name=999.9&cateId=20&attr_28=129&uuid=48D1058348DCE928091FF5391F53D00E6C5CB8477ED806309B9DAF7454E05783%401593415106328&cityId=56&offset=0&limit=20&startDay=20200817&endDay=20200817&q=&sort=defaults&X-FOR-WITH=CXa14Wg8s%2FYM4AMbtwuj1aHLyZkq2EMGoZ9ejcONv6mx4qpBezHK1uXrMhwrANsofo7rKNTZiNxj%2BT62rkJlWVgFhTjCM00y5yfPla308eT9pko6GSAuJ8xZDOLr8jAsjgmEyQNdBqKGfhVeYfMh1oT1qzrXOUvy35qLWHJcmNe%2BRMUIhMlffIFB0AagRlbeJdymcaZOqaofQ%2FZwCjcSHQ%3D%3D"
+      );      
       this.poiids = res.data.ct_pois;
       this.poiInfo = res.data.data.searchresult;
-      console.log(this.poiInfo)
       for(let i in this.poiids){
           
           // this.getHotelContents(this.poiids[i].poiid);
@@ -492,12 +502,10 @@ export default {
       // console.log(that.poiInfo[8].serviceIconsInfo)
       // that.$forceUpdate()
       // })
-      console.log(7)
       // for(var i in this.poiids){
       //     this.poiInfo.serviceIconsInfo = serviceIconsInfo;
       // }
-      console.log(this.poiInfo);
-      console.log(this.poiInfo[0].serviceIconsInfo)
+     
     },
     async getHotelContents(id) {
       let data = await request_get(
@@ -675,6 +683,7 @@ export default {
   width: 900px;
 }
 .poilist {
+  position: relative;
   background-color: #fff;
   border: 1px solid #e5e5e5;
   margin-bottom: 20px;
