@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" v-if="showLoading">
     <div class="animation">
       <div class="shape shape1"></div>
       <div class="shape shape2"></div>
@@ -20,23 +20,23 @@ export default {
     };
   },
   props: {
-    commentNum: {
-      type: Number,
-      default: 0
-    },
-    score: {
-      type: Number,
-      default: 0
+    showLoading: {
+      type: Boolean,
+      default: true
     }
   },
   components: {},
   computed: {},
 
   created(){
-    console.log(this.commentNum);
+    
   },
   mounted() {
-   
+   console.log(this);
+    var _this = this;
+    setTimeout(function(){
+      _this.showLoading = false;
+    },3000);
    
   },
   methods: {}

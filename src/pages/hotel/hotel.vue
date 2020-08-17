@@ -265,8 +265,8 @@
   <div class="poititle">
               <a href="javascript:;">智能排序</a>
             </div>
-            <loading></loading>
-            <div>
+            <loading :showLoading="!loadHotelList"></loading>
+            <div v-if="loadHotelList">
               <div class="poi-item" v-for="(item, index) in poiInfo">
               <div class="pic">
                 <a href>
@@ -312,7 +312,7 @@
             </div>
             </div>
           
-           <div class="poipage">
+           <div class="poipage" v-if="loadHotelList">
             <ul>
               <li>
                 <span>1</span>
@@ -376,7 +376,8 @@ export default {
       hotelTypeInfo: [], //酒店类型
       hotelBrandInfo: [], //品牌
       poiids: [], //酒店id
-      poiInfo: [] //酒店列表
+      poiInfo: [], //酒店列表
+      loadHotelList: false, //酒店列表数据加载较慢
     };
   },
   components: {
@@ -488,6 +489,9 @@ export default {
              this.poiids[i].poiid
           );
           that.poiInfo[i].serviceIconsInfo = data.data.data.serviceIconsInfo.serviceIcons;
+          if(i==19){
+            that.loadHotelList = true;
+          }
       console.log(that.poiInfo)
       that.$forceUpdate()
 
