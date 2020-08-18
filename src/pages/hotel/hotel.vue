@@ -391,7 +391,6 @@ export default {
   },
   created() {
     this.initData();
-    console.log(this.showmore[0].show)
   },
   mounted() {
     console.log(this)
@@ -431,9 +430,7 @@ export default {
       this.transportInfo = transportInfo;
       this.viewInfo = viewInfo;
       this.hospitalInfo = hospitalInfo;
-      console.log(transportInfo);
-      console.log(viewInfo);
-      console.log(this.hospitalInfo);
+    
       this.universitiesInfo = universitiesInfo;
       for (var i in subareasInfo) {
         for (var j in res.data.data.hotareas) {
@@ -443,11 +440,7 @@ export default {
         }
       }
       this.hotInfo = hotInfo;
-      console.log(universitiesInfo);
-      console.log(hotInfo);
-      console.log(res.data.data.hotareas);
-
-      console.log(subareasInfo);
+     
       for (var i in this.areasInfo) {
         this.areasInfo[i].subareasInfo = [];
         this.areasInfo[i].subareasInfo.push({
@@ -459,21 +452,18 @@ export default {
           }
         }
       }
-      console.log(this.areasInfo);
     },
     async getSubwayList() {
       let res = await request_get(
         "/jiudian/group/v1/subway/listline?utm_medium=pc&version_name=999.9&cityId=56&X-FOR-WITH=HCnuEtc%2BAIlOTA7AycE5ERzeb5tyFztDOXmvUjz9WgxA0p%2FEoEouu8hQe489PaPnYHQhRw7YeCybcJ%2BlE6c6zoJgRXmQjh19fo4oYT%2F3U%2BtT30D062GKOD63fJdXUez%2Bcd8rV3Nz1LLivNX9vl8LAB6ZDLjLga66HqF9IglY5PyMMgv9QsKh5YF8dZdiWDMr7JEMsueTrS2dF00uPkInBSYpcCaw5S9LnTxptco3Kd0%3D"
       );
       this.subwayInfo = res.data.data;
-      console.log(this.subwayInfo);
     },
     async getHotelFilterList() {
       let res = await request_get(
         "/jiudian/group/v2/deal/select/list/city/56/cate/20?utm_medium=pc&version_name=999.9&X-FOR-WITH=RXCG8HjCM5Gl0xGrBw6V%2BSPjlZHaGbK9THmXRs2bFixfRWN23CbJucLDb8KFQp1q0dFFYSs3Xij1J%2BeUssgKG1WH53e3jx9yQfEt%2FFkqKWBKc89CmmhbWID9tz32DmWgFrA3%2BIo2iXDSzdHjui%2FlYHo0GX2auMn1LZFUUtbboEWN%2BNbGLpgLYDp4zlick2Y4R0Iub3is0CoIx%2BIlsrN7Uw%3D%3D"
       );
-      console.log(res.data.data[3].values[4]);
-      console.log(Object.keys(res.data.data[3].values[4])[0]);
+     
       this.hotelTypeInfo = res.data.data[3].values;
       this.hotelBrandInfo = res.data.data[5].values;
     },
@@ -497,9 +487,7 @@ export default {
           if(i==19){
             that.loadHotelList = true;
           }
-      console.log(that.poiInfo)
-      that.$forceUpdate()
-
+        // that.$forceUpdate()
           
       }
       // this.poiids.forEach(async i => {
@@ -522,7 +510,6 @@ export default {
           id
       );
       this.poiInfo.push(data.data.data);
-      console.log(this.poiInfo);
     },
     showSubareas(index) {
       this.cAreaIndex = index;
@@ -535,8 +522,6 @@ export default {
     },
     showMore(index){
       this.showmore[index].show = !this.showmore[index].show;
-      console.log(this.showmore[index])
-
     }
   }
 };
