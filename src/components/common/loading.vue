@@ -33,10 +33,10 @@ export default {
   },
   mounted() {
    console.log(this);
-    var _this = this;
-    setTimeout(function(){
-      _this.showLoading = false;
-    },3000);
+    // var _this = this;
+    // setTimeout(function(){
+    //   _this.showLoading = false;
+    // },3000);
    
   },
   methods: {}
@@ -46,7 +46,7 @@ export default {
 .wrapper{
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
+  /* background-color: rgba(0, 0, 0, 0.4); */
   position: absolute;
 
 }
@@ -54,7 +54,7 @@ export default {
   width: 40px;
   height: 40px;
   position: relative;
-  margin: 20px auto;
+  margin: 50px auto;
   animation: rotate 1s ease 1s infinite alternate;
 }
 .shape{

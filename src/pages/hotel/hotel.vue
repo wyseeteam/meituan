@@ -216,7 +216,7 @@
                     v-bind:class="[cCategoryIndex==0?'active':'']"
                   >不限</a>
                 </div>
-                <div class="searchcontent">
+                <div class="searchcontent" :style="{height:showmore[0].show?'auto':'30px'}">
                   <div class="searchitem" v-for="(item, index) in hotelTypeInfo">
                     <a href="javascript:;">
                       <label>
@@ -227,6 +227,7 @@
                   </div>
                 </div>
               </div>
+              <div class="showMore"><span @click="showMore(0)">{{showmore[0].show?'收起':'更多'}}</span></div>
             </div>
             <div class="searchrow searchrowbox">
               <div class="searchtitle">品牌</div>
@@ -238,7 +239,7 @@
                     v-bind:class="[cCategoryIndex==0?'active':'']"
                   >不限</a>
                 </div>
-                <div class="searchcontent">
+                <div class="searchcontent" :style="{height:showmore[1].show?'auto':'30px'}">
                   <div class="searchitem" v-for="(item, index) in hotelBrandInfo">
                     <a href="javascript:;">
                       <label>
@@ -249,6 +250,7 @@
                   </div>
                 </div>
               </div>
+              <div class="showMore"><span @click="showMore(1)">{{showmore[1].show?'收起':'更多'}}</span></div>
             </div>
           </div>
         </div>
@@ -377,7 +379,9 @@ export default {
       hotelBrandInfo: [], //品牌
       poiids: [], //酒店id
       poiInfo: [], //酒店列表
-      loadHotelList: false, //酒店列表数据加载较慢
+      loadHotelList: false, //酒店列表数据加载较慢，需要请求所有数据完成后再加载
+      allCount: 0,//酒店列表总数量 
+      showmore: [{ show: false }, { show: false }],//更多收起
     };
   },
   components: {
@@ -386,11 +390,11 @@ export default {
     loading
   },
   created() {
-    console.log(this)
-    console.log(this._data)
-    console.log(this.$data)
-    console.log(Vue)
     this.initData();
+    console.log(this.showmore[0].show)
+  },
+  mounted() {
+    console.log(this)
   },
   methods: {
     initData() {
@@ -481,6 +485,7 @@ export default {
       );      
       this.poiids = res.data.ct_pois;
       this.poiInfo = res.data.data.searchresult;
+      this.allCount = res.data.data.totalcount;
       for(let i in this.poiids){
           
           // this.getHotelContents(this.poiids[i].poiid);
@@ -527,6 +532,11 @@ export default {
     },
     showDiffCategory(index) {
       this.cCategoryIndex = index;
+    },
+    showMore(index){
+      this.showmore[index].show = !this.showmore[index].show;
+      console.log(this.showmore[index])
+
     }
   }
 };
@@ -670,9 +680,19 @@ export default {
 }
 .searchrowbox .searchcontent {
   display: inline-block;
-  max-width: 980px;
+  max-width: 950px;
   font-size: 0;
   vertical-align: top;
+  height: 30px;
+  overflow: hidden;
+}
+.showMore{
+  width: 50px;
+  float: right;
+  text-align: right;
+}
+.showMore span{
+  cursor: pointer;
 }
 .searchex {
   padding: 20px;
