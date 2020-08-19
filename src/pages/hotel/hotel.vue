@@ -13,12 +13,13 @@
           </div>
           <div class="datewrapper">
             <div class="enterwrapper">
-              <label class="c-box enterbox">
+              <label class="c-box enterbox" @click="showCalendar">
                 <span class="inputtitle">入住</span>
                 <input type="text" value="2021-03-04" class="dateinput" />
                 <span class="week">星期三</span>
                 <i></i>
               </label>
+              <calendar :showCalendar="showcalendar"></calendar>
             </div>
             <span class="line">-</span>
             <div class="leavewrapper">
@@ -256,7 +257,7 @@
         </div>
         <div class="searchex">
           <span>
-            <span class="num">22</span>家酒店符合条件
+            <span class="num">{{allCount}}</span>家酒店符合条件
           </span>
         </div>
       </div>
@@ -359,6 +360,7 @@
 import headTop from "../../components/header/header";
 import search from "../../components/common/search";
 import loading from "../../components/common/loading";
+import calendar from "../../components/common/calendar";
 
 import { request_get } from "../../ajax/request";
 import Vue from 'Vue';
@@ -382,12 +384,14 @@ export default {
       loadHotelList: false, //酒店列表数据加载较慢，需要请求所有数据完成后再加载
       allCount: 0,//酒店列表总数量 
       showmore: [{ show: false }, { show: false }],//更多收起
+      showcalendar: false,
     };
   },
   components: {
     headTop,
     search,
-    loading
+    loading,
+    calendar
   },
   created() {
     this.initData();
@@ -471,7 +475,7 @@ export default {
     async getHotelList() {
       let that = this;
       let res = await request_get(
-        "/jiudian/hbsearch/HotelSearch?utm_medium=pc&version_name=999.9&cateId=20&attr_28=129&uuid=48D1058348DCE928091FF5391F53D00E6C5CB8477ED806309B9DAF7454E05783%401593415106328&cityId=56&offset=0&limit=20&startDay=20200817&endDay=20200817&q=&sort=defaults&X-FOR-WITH=CXa14Wg8s%2FYM4AMbtwuj1aHLyZkq2EMGoZ9ejcONv6mx4qpBezHK1uXrMhwrANsofo7rKNTZiNxj%2BT62rkJlWVgFhTjCM00y5yfPla308eT9pko6GSAuJ8xZDOLr8jAsjgmEyQNdBqKGfhVeYfMh1oT1qzrXOUvy35qLWHJcmNe%2BRMUIhMlffIFB0AagRlbeJdymcaZOqaofQ%2FZwCjcSHQ%3D%3D"
+        "/jiudian/hbsearch/HotelSearch?utm_medium=pc&version_name=999.9&cateId=20&attr_28=129&uuid=48D1058348DCE928091FF5391F53D00E6C5CB8477ED806309B9DAF7454E05783%401593415106328&cityId=56&offset=0&limit=20&startDay=20200819&endDay=20200819&q=&sort=defaults&X-FOR-WITH=CXa14Wg8s%2FYM4AMbtwuj1aHLyZkq2EMGoZ9ejcONv6mx4qpBezHK1uXrMhwrANsofo7rKNTZiNxj%2BT62rkJlWVgFhTjCM00y5yfPla308eT9pko6GSAuJ8xZDOLr8jAsjgmEyQNdBqKGfhVeYfMh1oT1qzrXOUvy35qLWHJcmNe%2BRMUIhMlffIFB0AagRlbeJdymcaZOqaofQ%2FZwCjcSHQ%3D%3D"
       );      
       this.poiids = res.data.ct_pois;
       this.poiInfo = res.data.data.searchresult;
@@ -520,8 +524,11 @@ export default {
     showDiffCategory(index) {
       this.cCategoryIndex = index;
     },
-    showMore(index){
+    showMore(index) {
       this.showmore[index].show = !this.showmore[index].show;
+    },
+    showCalendar() {
+      this.showcalendar = true;
     }
   }
 };
