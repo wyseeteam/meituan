@@ -50,6 +50,7 @@ export default {
     width: 230px;
     text-align: center;
     font-weight: bold;
+    background-color: #fff;
 }
 .c-header{
     background-color: #ffc300;

@@ -361,9 +361,9 @@ import headTop from "../../components/header/header";
 import search from "../../components/common/search";
 import loading from "../../components/common/loading";
 import calendar from "../../components/common/calendar";
-
 import { request_get } from "../../ajax/request";
-import Vue from 'Vue';
+import mixin from "../../components/common/mixin";
+
 export default {
   data() {
     return {
@@ -393,7 +393,9 @@ export default {
     loading,
     calendar
   },
+  mixins: [mixin],
   created() {
+    this.cDate = this.getCurrentDate();
     this.initData();
   },
   mounted() {
@@ -475,7 +477,7 @@ export default {
     async getHotelList() {
       let that = this;
       let res = await request_get(
-        "/jiudian/hbsearch/HotelSearch?utm_medium=pc&version_name=999.9&cateId=20&attr_28=129&uuid=48D1058348DCE928091FF5391F53D00E6C5CB8477ED806309B9DAF7454E05783%401593415106328&cityId=56&offset=0&limit=20&startDay=20200819&endDay=20200819&q=&sort=defaults&X-FOR-WITH=CXa14Wg8s%2FYM4AMbtwuj1aHLyZkq2EMGoZ9ejcONv6mx4qpBezHK1uXrMhwrANsofo7rKNTZiNxj%2BT62rkJlWVgFhTjCM00y5yfPla308eT9pko6GSAuJ8xZDOLr8jAsjgmEyQNdBqKGfhVeYfMh1oT1qzrXOUvy35qLWHJcmNe%2BRMUIhMlffIFB0AagRlbeJdymcaZOqaofQ%2FZwCjcSHQ%3D%3D"
+        "/jiudian/hbsearch/HotelSearch?utm_medium=pc&version_name=999.9&cateId=20&attr_28=129&uuid=48D1058348DCE928091FF5391F53D00E6C5CB8477ED806309B9DAF7454E05783%401593415106328&cityId=56&offset=0&limit=20&startDay="+this.cDate+"&endDay="+this.cDate+"&q=&sort=defaults&X-FOR-WITH=CXa14Wg8s%2FYM4AMbtwuj1aHLyZkq2EMGoZ9ejcONv6mx4qpBezHK1uXrMhwrANsofo7rKNTZiNxj%2BT62rkJlWVgFhTjCM00y5yfPla308eT9pko6GSAuJ8xZDOLr8jAsjgmEyQNdBqKGfhVeYfMh1oT1qzrXOUvy35qLWHJcmNe%2BRMUIhMlffIFB0AagRlbeJdymcaZOqaofQ%2FZwCjcSHQ%3D%3D"
       );      
       this.poiids = res.data.ct_pois;
       this.poiInfo = res.data.data.searchresult;
