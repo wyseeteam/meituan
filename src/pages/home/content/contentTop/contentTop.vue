@@ -123,7 +123,6 @@ export default {
 				  newData.push(item);
 			  }
 		  })
-		  console.log(newData)
 		  return newData;
 	  }
   },
@@ -141,8 +140,7 @@ export default {
 		this.appData = txt;
 		this.categorys = txt.categorys;
 		this.bannerList = txt.bannerList[0].content;
-		console.log(this.appData)
-		console.log(this.categorys)
+	
 		this.bannerimg2 = txt.bannerList[1].content.url;
 		this.bannerimg3 = txt.bannerList[2].content.url;
 		this.bannerimg4 = txt.bannerList[3].content.url;
@@ -151,18 +149,15 @@ export default {
 	  },
 	  showTipitem(index) {
 		  this.showNavIndex = index;
-		  console.log(index)
 		  this.istipitemshowed = true;
 	  },
 	  hideTipitem(index) {
 		  this.istipitemshowed = false;
 	  },
 	  setBannerAnimation() {
-		  console.log(this.bannerList)
 
 	  },
 	  getStyle(index) {
-		  console.log(index)
 		  return 'left:-' + (index*550) +'px';
 	  },
 	  goLeft() {

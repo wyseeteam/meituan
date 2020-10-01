@@ -95,12 +95,24 @@ export default {
 			 {show: false},
 			 {show: false},
 		 ],
+		 a: 2
 
 	  }
   },
+  props: {
+	  ss: {
+		  type: Number,
+		  default: 0
+	  }
+  },
   created(){
-	  console.log(this.showsubmenu)
-	  console.log(this.showsubmenu[0].show)
+  },
+  mounted(){
+  },
+  updated(){
+  },
+  watch: {
+	  
   },
   methods: {
 	  showSubmenu(index) {

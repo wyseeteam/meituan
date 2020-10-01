@@ -27,6 +27,16 @@ export default {
     contentBottom,
     navigation,
     footBottom
+  },
+  data() {
+    return {
+      
+    }
+  },
+  updated() {
+  },
+  methods: {
+   
   }
 };
 </script>

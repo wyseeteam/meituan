@@ -35,9 +35,7 @@ export default {
       }
   },
   created: function() {
-    console.log("created");
-    console.log(this.option_list);
-    console.log(this.option_title);
+   
     this.normalcolor = this.option_color;
   },
 
@@ -53,7 +51,6 @@ export default {
             });
           }
           this.option_list = curVal;
-          console.log(this.option_list);
           
       }
   },

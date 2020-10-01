@@ -48,7 +48,6 @@ export default {
   computed: {},
 
   created(){
-    console.log(this.commentNum);
   },
   mounted() {
     var el = document.getElementById("starback"); ////获取每个星星的宽度
@@ -78,7 +77,6 @@ export default {
     ////实际比率
     var sjlv = parseFloat(slen / (wi * 5 + 10 * 4)) * 100;
 
-    console.log(this.score);
 
     this.len = sjlv + "%";
   },

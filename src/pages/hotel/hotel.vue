@@ -342,6 +342,7 @@ export default {
     search
   },
   created() {
+    console.log(this)
     this.initData();
   },
   methods: {
