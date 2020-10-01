@@ -116,7 +116,6 @@ export default {
     title: String
   },
   data() {
-<<<<<<< HEAD
 	  return {
 		 showsubmenu: [
 			 {show: false},
@@ -141,14 +140,9 @@ export default {
   },
   watch: {
 	  
-=======
-    return {
-      showsubmenu: [{ show: false }, { show: false }, { show: false }]
-    };
   },
   created() {
     console.log(this);
->>>>>>> de6f9e2938861ed2c35cde8e01be5b360eef941d
   },
   methods: {
     showSubmenu(index) {

@@ -395,11 +395,8 @@ export default {
   },
   mixins: [mixin],
   created() {
-<<<<<<< HEAD
     console.log(this)
-=======
     this.cDate = this.getCurrentDate();
->>>>>>> de6f9e2938861ed2c35cde8e01be5b360eef941d
     this.initData();
   },
   mounted() {
