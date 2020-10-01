@@ -13,12 +13,13 @@
           </div>
           <div class="datewrapper">
             <div class="enterwrapper">
-              <label class="c-box enterbox">
+              <label class="c-box enterbox" @click="showCalendar">
                 <span class="inputtitle">入住</span>
                 <input type="text" value="2021-03-04" class="dateinput" />
                 <span class="week">星期三</span>
                 <i></i>
               </label>
+              <calendar :showCalendar="showcalendar"></calendar>
             </div>
             <span class="line">-</span>
             <div class="leavewrapper">
@@ -216,7 +217,7 @@
                     v-bind:class="[cCategoryIndex==0?'active':'']"
                   >不限</a>
                 </div>
-                <div class="searchcontent">
+                <div class="searchcontent" :style="{height:showmore[0].show?'auto':'30px'}">
                   <div class="searchitem" v-for="(item, index) in hotelTypeInfo">
                     <a href="javascript:;">
                       <label>
@@ -227,6 +228,7 @@
                   </div>
                 </div>
               </div>
+              <div class="showMore"><span @click="showMore(0)">{{showmore[0].show?'收起':'更多'}}</span></div>
             </div>
             <div class="searchrow searchrowbox">
               <div class="searchtitle">品牌</div>
@@ -238,7 +240,7 @@
                     v-bind:class="[cCategoryIndex==0?'active':'']"
                   >不限</a>
                 </div>
-                <div class="searchcontent">
+                <div class="searchcontent" :style="{height:showmore[1].show?'auto':'30px'}">
                   <div class="searchitem" v-for="(item, index) in hotelBrandInfo">
                     <a href="javascript:;">
                       <label>
@@ -249,22 +251,26 @@
                   </div>
                 </div>
               </div>
+              <div class="showMore"><span @click="showMore(1)">{{showmore[1].show?'收起':'更多'}}</span></div>
             </div>
           </div>
         </div>
         <div class="searchex">
           <span>
-            <span class="num">22</span>家酒店符合条件
+            <span class="num">{{allCount}}</span>家酒店符合条件
           </span>
         </div>
       </div>
       <div class="contentcontainer">
         <div class="poiitem">
-          <div class="poilist">
-            <div class="poititle">
+          <div class="poicontent">
+            <div class="poilist">
+  <div class="poititle">
               <a href="javascript:;">智能排序</a>
             </div>
-            <div class="poi-item" v-for="(item, index) in poiInfo">
+            <loading :showLoading="!loadHotelList"></loading>
+            <div v-if="loadHotelList">
+              <div class="poi-item" v-for="(item, index) in poiInfo">
               <div class="pic">
                 <a href>
                   <img v-bind:src="item.frontImg.replace('w.h','320.0')" />
@@ -305,8 +311,44 @@
                 </div>
               </div>
             </div>
+            
+            </div>
+            </div>
+          
+           <div class="poipage" v-if="loadHotelList">
+            <ul>
+              <li>
+                <span>1</span>
+              </li>
+              <li>
+                <a href="javascript:;">2</a>
+              </li>
+              <li>
+                <a href="javascript:;">2</a>
+              </li>
+              <li>
+                <a href="javascript:;">2</a>
+              </li>
+              <li>
+                <a href="javascript:;">2</a>
+              </li>
+              <li>
+                <a href="javascript:;">2</a>
+              </li>
+              <li>
+                <a href="javascript:;">2</a>
+              </li>
+              <li>
+                <a href="javascript:;">2</a>
+              </li>
+              <li>
+                <a href="javascript:;">2</a>
+              </li>
+
+            </ul>
           </div>
-          <div class="poipage"></div>
+          </div>
+          
         </div>
         <div id="map"></div>
       </div>
@@ -317,7 +359,11 @@
 <script>
 import headTop from "../../components/header/header";
 import search from "../../components/common/search";
+import loading from "../../components/common/loading";
+import calendar from "../../components/common/calendar";
 import { request_get } from "../../ajax/request";
+import mixin from "../../components/common/mixin";
+
 export default {
   data() {
     return {
@@ -334,16 +380,30 @@ export default {
       hotelTypeInfo: [], //酒店类型
       hotelBrandInfo: [], //品牌
       poiids: [], //酒店id
-      poiInfo: [] //酒店列表
+      poiInfo: [], //酒店列表
+      loadHotelList: false, //酒店列表数据加载较慢，需要请求所有数据完成后再加载
+      allCount: 0,//酒店列表总数量 
+      showmore: [{ show: false }, { show: false }],//更多收起
+      showcalendar: false,
     };
   },
   components: {
     headTop,
-    search
+    search,
+    loading,
+    calendar
   },
+  mixins: [mixin],
   created() {
+<<<<<<< HEAD
     console.log(this)
+=======
+    this.cDate = this.getCurrentDate();
+>>>>>>> de6f9e2938861ed2c35cde8e01be5b360eef941d
     this.initData();
+  },
+  mounted() {
+    console.log(this)
   },
   methods: {
     initData() {
@@ -380,9 +440,7 @@ export default {
       this.transportInfo = transportInfo;
       this.viewInfo = viewInfo;
       this.hospitalInfo = hospitalInfo;
-      console.log(transportInfo);
-      console.log(viewInfo);
-      console.log(this.hospitalInfo);
+    
       this.universitiesInfo = universitiesInfo;
       for (var i in subareasInfo) {
         for (var j in res.data.data.hotareas) {
@@ -392,11 +450,7 @@ export default {
         }
       }
       this.hotInfo = hotInfo;
-      console.log(universitiesInfo);
-      console.log(hotInfo);
-      console.log(res.data.data.hotareas);
-
-      console.log(subareasInfo);
+     
       for (var i in this.areasInfo) {
         this.areasInfo[i].subareasInfo = [];
         this.areasInfo[i].subareasInfo.push({
@@ -408,21 +462,18 @@ export default {
           }
         }
       }
-      console.log(this.areasInfo);
     },
     async getSubwayList() {
       let res = await request_get(
         "/jiudian/group/v1/subway/listline?utm_medium=pc&version_name=999.9&cityId=56&X-FOR-WITH=HCnuEtc%2BAIlOTA7AycE5ERzeb5tyFztDOXmvUjz9WgxA0p%2FEoEouu8hQe489PaPnYHQhRw7YeCybcJ%2BlE6c6zoJgRXmQjh19fo4oYT%2F3U%2BtT30D062GKOD63fJdXUez%2Bcd8rV3Nz1LLivNX9vl8LAB6ZDLjLga66HqF9IglY5PyMMgv9QsKh5YF8dZdiWDMr7JEMsueTrS2dF00uPkInBSYpcCaw5S9LnTxptco3Kd0%3D"
       );
       this.subwayInfo = res.data.data;
-      console.log(this.subwayInfo);
     },
     async getHotelFilterList() {
       let res = await request_get(
         "/jiudian/group/v2/deal/select/list/city/56/cate/20?utm_medium=pc&version_name=999.9&X-FOR-WITH=RXCG8HjCM5Gl0xGrBw6V%2BSPjlZHaGbK9THmXRs2bFixfRWN23CbJucLDb8KFQp1q0dFFYSs3Xij1J%2BeUssgKG1WH53e3jx9yQfEt%2FFkqKWBKc89CmmhbWID9tz32DmWgFrA3%2BIo2iXDSzdHjui%2FlYHo0GX2auMn1LZFUUtbboEWN%2BNbGLpgLYDp4zlick2Y4R0Iub3is0CoIx%2BIlsrN7Uw%3D%3D"
       );
-      console.log(res.data.data[3].values[4]);
-      console.log(Object.keys(res.data.data[3].values[4])[0]);
+     
       this.hotelTypeInfo = res.data.data[3].values;
       this.hotelBrandInfo = res.data.data[5].values;
     },
@@ -430,11 +481,11 @@ export default {
     async getHotelList() {
       let that = this;
       let res = await request_get(
-        "/jiudian/hbsearch/HotelSearch?utm_medium=pc&version_name=999.9&cateId=20&attr_28=129&uuid=48D1058348DCE928091FF5391F53D00E6C5CB8477ED806309B9DAF7454E05783%401593415106328&cityId=56&offset=0&limit=20&startDay=20200702&endDay=20200702&q=&sort=defaults&X-FOR-WITH=CXa14Wg8s%2FYM4AMbtwuj1aHLyZkq2EMGoZ9ejcONv6mx4qpBezHK1uXrMhwrANsofo7rKNTZiNxj%2BT62rkJlWVgFhTjCM00y5yfPla308eT9pko6GSAuJ8xZDOLr8jAsjgmEyQNdBqKGfhVeYfMh1oT1qzrXOUvy35qLWHJcmNe%2BRMUIhMlffIFB0AagRlbeJdymcaZOqaofQ%2FZwCjcSHQ%3D%3D"
-      );
+        "/jiudian/hbsearch/HotelSearch?utm_medium=pc&version_name=999.9&cateId=20&attr_28=129&uuid=48D1058348DCE928091FF5391F53D00E6C5CB8477ED806309B9DAF7454E05783%401593415106328&cityId=56&offset=0&limit=20&startDay="+this.cDate+"&endDay="+this.cDate+"&q=&sort=defaults&X-FOR-WITH=CXa14Wg8s%2FYM4AMbtwuj1aHLyZkq2EMGoZ9ejcONv6mx4qpBezHK1uXrMhwrANsofo7rKNTZiNxj%2BT62rkJlWVgFhTjCM00y5yfPla308eT9pko6GSAuJ8xZDOLr8jAsjgmEyQNdBqKGfhVeYfMh1oT1qzrXOUvy35qLWHJcmNe%2BRMUIhMlffIFB0AagRlbeJdymcaZOqaofQ%2FZwCjcSHQ%3D%3D"
+      );      
       this.poiids = res.data.ct_pois;
       this.poiInfo = res.data.data.searchresult;
-      console.log(this.poiInfo)
+      this.allCount = res.data.data.totalcount;
       for(let i in this.poiids){
           
           // this.getHotelContents(this.poiids[i].poiid);
@@ -443,9 +494,10 @@ export default {
              this.poiids[i].poiid
           );
           that.poiInfo[i].serviceIconsInfo = data.data.data.serviceIconsInfo.serviceIcons;
-      console.log(that.poiInfo)
-      that.$forceUpdate()
-
+          if(i==19){
+            that.loadHotelList = true;
+          }
+        // that.$forceUpdate()
           
       }
       // this.poiids.forEach(async i => {
@@ -457,12 +509,10 @@ export default {
       // console.log(that.poiInfo[8].serviceIconsInfo)
       // that.$forceUpdate()
       // })
-      console.log(7)
       // for(var i in this.poiids){
       //     this.poiInfo.serviceIconsInfo = serviceIconsInfo;
       // }
-      console.log(this.poiInfo);
-      console.log(this.poiInfo[0].serviceIconsInfo)
+     
     },
     async getHotelContents(id) {
       let data = await request_get(
@@ -470,7 +520,6 @@ export default {
           id
       );
       this.poiInfo.push(data.data.data);
-      console.log(this.poiInfo);
     },
     showSubareas(index) {
       this.cAreaIndex = index;
@@ -480,6 +529,12 @@ export default {
     },
     showDiffCategory(index) {
       this.cCategoryIndex = index;
+    },
+    showMore(index) {
+      this.showmore[index].show = !this.showmore[index].show;
+    },
+    showCalendar() {
+      this.showcalendar = true;
     }
   }
 };
@@ -623,9 +678,19 @@ export default {
 }
 .searchrowbox .searchcontent {
   display: inline-block;
-  max-width: 980px;
+  max-width: 950px;
   font-size: 0;
   vertical-align: top;
+  height: 30px;
+  overflow: hidden;
+}
+.showMore{
+  width: 50px;
+  float: right;
+  text-align: right;
+}
+.showMore span{
+  cursor: pointer;
 }
 .searchex {
   padding: 20px;
@@ -640,8 +705,10 @@ export default {
   width: 900px;
 }
 .poilist {
+  position: relative;
   background-color: #fff;
   border: 1px solid #e5e5e5;
+  margin-bottom: 20px;
 }
 .contentcontainer {
   margin-top: 20px;
@@ -758,5 +825,16 @@ export default {
   font-weight: bold;
   line-height: 2;
   border-radius: 1em;
+}
+.poipage{
+  text-align: center;
+}
+.poipage li span,.poipage li a{
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 50%;
+  border: 1px solid #999;
 }
 </style>

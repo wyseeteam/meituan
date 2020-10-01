@@ -1,6 +1,6 @@
 <template>
   <div>
-    <head-top></head-top>
+    <head-top title="dhsdbh"></head-top>
     <search></search>
     <div class="container">
       <contentTop></contentTop>
