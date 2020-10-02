@@ -1,8 +1,8 @@
 <template>
   <div>
-    <head-top title="dhsdbh"></head-top>
+    <head-top title="dhsdbh" :ss="aa" @func="geta"></head-top>
     <search></search>
-    <div class="container">
+    <div class="container" v-on:click="cc">
       <contentTop></contentTop>
       <contentBottom></contentBottom>
       <navigation></navigation>
@@ -30,13 +30,21 @@ export default {
   },
   data() {
     return {
-      
+      aa: 90
     }
   },
   updated() {
+    alert(9989)
   },
   methods: {
-   
+   cc(){
+     alert(8888)
+     this.aa = 78;
+   },
+   geta(a){
+     alert(77)
+     console.log(a)
+   }
   }
 };
 </script>

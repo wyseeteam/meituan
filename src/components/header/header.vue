@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="headerwrapper">
-      <div class="headerbarposition">
+      <div class="headerbarposition" v-on:click="dd">
         <span>合肥</span>
         <a href>切换城市</a>
         <div>
@@ -80,6 +80,7 @@
               </li>
             </ul>
           </li>
+          {{ss}}
           <li
             class="menu noclick"
             v-if="showsubmenu[2]"
@@ -137,9 +138,14 @@ export default {
   mounted(){
   },
   updated(){
+	  alert(999)
+      this.$emit('func',this.ss);
+
   },
   watch: {
-	  
+	  ss() {
+		  alert()
+	  }
   },
   created() {
     console.log(this);
@@ -157,6 +163,9 @@ export default {
       } else {
         return "background-color: transparent;border-color: transparent";
       }
+    },
+    dd(){
+
     }
   }
 };
